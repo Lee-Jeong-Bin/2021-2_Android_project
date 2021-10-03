@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "451763536754",
+    "firebase_url": "https://mobilesw-2team-carpooldb-default-rtdb.firebaseio.com",
+    "project_id": "mobilesw-2team-carpooldb",
+    "storage_bucket": "mobilesw-2team-carpooldb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451763536754:android:17b691e5bd27abe6e493eb",
+        "android_client_info": {
+          "package_name": "com.androidproject.texipool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451763536754-1297t62d2h0bci2sjcqo6ttk8hqmm99i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXxTmtN17BdHym656o4eiFlZ-LI-ZuT3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "451763536754-1297t62d2h0bci2sjcqo6ttk8hqmm99i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
