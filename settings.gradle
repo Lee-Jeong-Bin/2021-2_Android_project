@@ -1,0 +1,2 @@
+rootProject.name = "texipool"
+include ':app'
