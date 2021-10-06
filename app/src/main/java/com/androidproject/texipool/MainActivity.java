@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
             //주석 작성함!!
         //my name is ghazal
-        // 이정빈 github test!
+        // 이정빈 github test
 
     }
 
