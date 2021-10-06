@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     void  getMyinfo(){  //나의 회원정보를 가져옴.
 
             //주석 작성함!!
+        //my name is ghazal
 
     }
 
