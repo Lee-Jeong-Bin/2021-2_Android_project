@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         mykey = getIntent().getStringExtra("mykey");
         System.out.println(mykey);
 
+        getMyinfo();
 
     }
 

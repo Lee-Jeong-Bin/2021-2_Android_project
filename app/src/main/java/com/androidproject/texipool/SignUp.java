@@ -53,6 +53,7 @@ public class SignUp extends AppCompatActivity {
 
      */
     int detect = 0;
+    private String aid;        //받은 고유킷값
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,53 +117,97 @@ public class SignUp extends AppCompatActivity {
 
                     //여기까지 정보가 전부 저장됨
                     detect = 0;
+
                     myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
                             //중복 데이터부터 검색
-                            for(DataSnapshot ds1 : snapshot.getChildren()){
-                                for(DataSnapshot ds2 : ds1.getChildren()){       //push로 만든 키값은  이렇게 2번 해줘야 한다.
+                            try {
+                                for (DataSnapshot ds1 : snapshot.getChildren()) {
 
-                                    User checkUser = ds2.getValue(User.class);
-                                    if(sid.equals(checkUser.userid)){
-                                        id.setText("");
-                                        id.setHint("이미 있는 아이디입니다.");
-                                        detect = 1;
-                                        break;
+                                    for (DataSnapshot ds2 : ds1.getChildren()) {       //push로 만든 키값은  이렇게 2번 해줘야 한다.
+
+                                        User checkUser = ds2.getValue(User.class);
+                                        if (sid.equals(checkUser.userid)) {
+                                            id.setText("");
+                                            id.setHint("이미 있는 아이디입니다.");
+                                            detect = 1;
+                                            break;
+                                        }
+                                        if (snickname.equals(checkUser.nickname)) {
+                                            System.out.println("안들어옴?");
+                                            nickname.setText("");
+                                            nickname.setHint("이미 있는 닉네임입니다.");
+                                            detect = 2;
+                                            break;
+                                        }
+
+                                        if (sphonenum.equals(checkUser.phone_num)) {
+                                            phonenum.setText("");
+                                            phonenum.setHint("이미 가입한 전화번호입니다.");
+                                            detect = 3;
+                                            break;
+                                        }
+
+
                                     }
-                                    if(snickname.equals(checkUser.nickname)){
-                                        System.out.println("안들어옴?");
-                                        nickname.setText("");
-                                        nickname.setHint("이미 있는 닉네임입니다.");
-                                        detect = 2;
-                                        break;
-                                    }
+                                    if (detect != 0) break;
+                                }//검사 끝
+                            }catch (Exception e){       //맨 처음 아이디 생성할 때는 중복검사를 할 수 없으니까 생김
 
-                                    if(sphonenum.equals(checkUser.phone_num)){
-                                        phonenum.setText("");
-                                        phonenum.setHint("이미 가입한 전화번호입니다.");
-                                        detect = 3;
-                                        break;
-                                    }
-
-
-
-
-                                }
-                                if(detect != 0)break;
-                            }//검사 끝
+                            }
 
                             if(detect == 0){//중복이 없음으로 서버에 저장
 
                                 user = new User(sid, spasswd, snickname, sphonenum);        //유저 정보 인스턴스
                                 myRef.child("User").push().setValue(user);                  //서버에 저장
 
-                                Intent registIntent = new Intent(SignUp.this, Login.class);
-                                //이거 아래 2개 해줘야 뒤로가기 버튼 눌러도 뒤로 안가진다.
-                                registIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                registIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                //시작
-                                startActivity(registIntent);
+                                //고유키값을 가져와서 UserInfo를 생성한다.
+                                myRef.addListenerForSingleValueEvent(new ValueEventListener() {     //데이터베이스 검색
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+
+                                        //텍스트에 적힌 아이디 비번 저장
+                                        sid = user.userid;
+                                        spasswd = user.userpasswd;
+
+                                        for (DataSnapshot ds1 : snapshot.getChildren()) {
+                                            for (DataSnapshot ds2 : ds1.getChildren()) {       //push로 만든 키값은  이렇게 2번 해줘야 한다.
+
+                                                User suser = ds2.getValue(User.class);          //검색
+
+                                                if (sid.equals(suser.userid)) {                //아이디가 일치할 경우
+                                                    if (spasswd.equals(suser.userpasswd)) {    //비밀번호가 일치할 경우
+
+                                                        //고유킷값을 저장한다.
+                                                        aid = ds2.getKey();
+                                                        System.out.println("키값:" + aid);
+
+                                                        //가져온 고유 키값으로 유저정보 만들기
+                                                        UserInfo ui = new UserInfo();
+                                                        myRef.child("UserInfo").child(aid).setValue(ui);
+                                                        Intent registIntent = new Intent(SignUp.this, Login.class);
+                                                        //이거 아래 2개 해줘야 뒤로가기 버튼 눌러도 뒤로 안가진다.
+                                                        registIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                        registIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        //시작
+                                                        startActivity(registIntent);
+
+                                                    }
+                                                }
+                                            }
+                                        }//for문 끝
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError error) {
+
+                                    }
+
+
+                                });
+
                             }
 
                         }
@@ -172,9 +217,6 @@ public class SignUp extends AppCompatActivity {
 
                         }
                     });
-
-
-
 
                 }catch(PhoneException phoneevent) {        //전화번호가 11자리가 안 맞을 경우
 
