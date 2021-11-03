@@ -1,18 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:background="#F8D753"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height=""
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1.4"
+        android:orientation="horizontal"
+        android:weightSum="4"
+        >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/join"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:text="그룹 참여"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/create"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:text="그룹 생성"
+            android:layout_weight="1"
+            />
+
+        <ImageButton
+            android:id="@+id/userButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+    <LinearLayout
+         android:layout_width="match_parent"
+          android:layout_height="0dp"
+         android:layout_weight="8"
+         android:orientation="vertical"
+         android:weightSum="8"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+    >
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height=""
+        android:layout_gravity="center"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="142dp"
+        android:layout_weight="3.5"/>
+
+    <ListView
+        android:id="@+id/listView2"
+        android:layout_width="match_parent"
+        android:layout_height=""
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        tools:layout_editor_absoluteX="27dp"
+        tools:layout_editor_absoluteY="142dp"
+        android:layout_weight="3.5"/>
+</LinearLayout>
+
+</LinearLayout>

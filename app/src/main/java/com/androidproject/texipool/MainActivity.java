@@ -18,15 +18,36 @@ public class MainActivity extends AppCompatActivity {
         mykey = getIntent().getStringExtra("mykey");
         System.out.println(mykey);
 
-        getMyinfo();
+        setting();
+        create();
+        join();
+        mypage();
+        texicall();
 
     }
 
-    void  getMyinfo(){  //나의 회원정보를 가져옴.
+    //리스트뷰 및 기본 세팅
+    void setting(){
 
-            //주석 작성함!!
-        //my name is ghazal
-        // 이정빈 github test
+    }
+
+    //그룹 생성 버튼
+    void create(){
+
+    }
+
+    //그룹 참가 버튼
+    void join(){
+
+    }
+
+    //마이 페이지 버튼
+    void mypage(){
+
+    }
+
+    //택시 호출 버튼
+    void texicall(){
 
     }
 
