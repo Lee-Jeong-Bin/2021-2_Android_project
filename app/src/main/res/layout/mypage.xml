@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Mypage"
+    android:weightSum="10"
+    android:orientation="vertical"
+    android:background="#F8D753">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.5"
+        android:weightSum="8"
+        android:orientation="horizontal">
+
+
+
+        <!-- 프로필 사진 영역 -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:weightSum="8">
+
+            <!-- 나가기 버튼과 알림 버튼이 들어간다. -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".1"></TextView>
+
+                <ImageButton
+                    android:id="@+id/move_main"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"
+                    android:background="@drawable/escape_icon"
+                    android:gravity="center">
+                </ImageButton>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.1"></TextView>
+
+
+                <ImageButton
+                    android:id="@+id/estimate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.4"
+                    android:background="@drawable/bell_icon"
+                    android:gravity="center">
+
+                </ImageButton>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4.3"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"></TextView>
+
+                <ImageView
+                    android:id="@+id/myimg"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.5"
+                    android:background="@drawable/imageshape"
+                    android:scaleType="centerCrop">
+
+                </ImageView>
+
+            </LinearLayout>
+
+            <!-- 여기는 이름 넣기 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.7"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"></TextView>
+
+                <TextView
+                    android:id="@+id/myname"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4.5"
+                    android:text="안녕하세요!\n ***님"
+                    android:textColor="#322610"
+                    android:fontFamily="@font/title"
+                    android:gravity="center"></TextView>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"></TextView>
+
+
+        <!-- 여기부터 탑승율 취소율 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4.2"
+            android:orientation="vertical"
+            android:weightSum="8">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8">
+
+            </TextView>
+
+            <!-- 평점 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.8"
+                android:background="@drawable/estimateshape"
+                android:orientation="vertical"
+                android:weightSum="3.5">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="*평점*"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/title"
+                    android:textColor="@color/black"></TextView>
+
+                <TextView
+                    android:id="@+id/stars"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="nn점/5점"
+                    android:fontFamily="@font/title"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"></TextView>
+
+                <!-- indicator true로 하면 별점이 고정, false면 별점 주는게 가능 -->
+                <RatingBar
+                    android:id="@+id/listitemrating"
+                    style="?android:attr/ratingBarStyleIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:layout_gravity="center_horizontal"
+                    android:numStars="5"
+                    android:rating="5"
+                    android:isIndicator="true"
+                    android:progressTint="#F4AC19"
+                    android:progressBackgroundTint="#F4AC19"
+                    android:secondaryProgressTint="#F4AC19"
+                    >
+                </RatingBar>
+
+            </LinearLayout>
+
+            <!-- 평가한 인원 체크 -->
+            <TextView
+
+                android:id="@+id/stars_people"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:text="nn명 탑승"
+                android:textColor="#322610"
+                android:fontFamily="@font/title"
+                android:gravity="center|right">
+
+            </TextView>
+
+            <!-- 취소율 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.8"
+                android:background="@drawable/estimateshape"
+                android:orientation="vertical"
+                android:weightSum="3.5">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.5"
+                    android:gravity="center|bottom"
+                    android:text="*취소율*"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/title"
+                    android:textColor="@color/black"></TextView>
+
+                <TextView
+                    android:id="@+id/cancle_percentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.7"
+                    android:gravity="center|top"
+                    android:text=" nn.nn%"
+                    android:textSize="30dp"
+                    android:fontFamily="@font/title"
+                    android:textColor="@color/black"></TextView>
+
+
+            </LinearLayout>
+
+            <!-- 탑승 횟수 체크 -->
+            <TextView
+
+                android:id="@+id/reserve_count"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:text="nn번 탑승"
+                android:textColor="#322610"
+                android:fontFamily="@font/title"
+                android:gravity="center|right">
+
+            </TextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!--여기부터는 채팅 리스트 구현 -->
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"></TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5.3"
+        android:orientation="horizontal"
+        android:weightSum="8">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"></TextView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/c1"
+                android:text="    채팅방"
+                android:textSize="20dp"
+                android:gravity="center|left"
+                android:fontFamily="@font/title"
+                android:textColor="@color/black">
+
+            </TextView>
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"></TextView>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8.8"
+                android:background="#ECAD46">
+
+            </ListView>
+
+
+
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"></TextView>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -11,8 +11,7 @@ public class UserInfo {
     public int fail_count = 0;                  //그룹 탈퇴 횟수
     public List stars = null;                   //평점을 전부 저장
     public List estimate_people = null;         //평점을 부여한 사람 저장
-    public String imgType = "";                 //이미지가 png인지 jpg인지 저장
-    public String img = "";                     //이진 파일로 실제 이미지가 여기 들어 있다.
+    public String img = null;                     //이진 파일로 실제 이미지가 여기 들어 있다.
 
     public List groups = null;                  //참가한 그룹 리스트
     public List end_groups = null;              //종료된 그룹 리스트
