@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     //나의 고유번호를 저장한다.
     private String mykey;
+    private String mynickname;
     private User myinfo;
 
     @Override
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mykey = getIntent().getStringExtra("mykey");
-        System.out.println(mykey);
+        mynickname = getIntent().getStringExtra("mynickname");
 
         setting();
         create();
@@ -31,18 +32,56 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //리스트뷰 및 기본 세팅
-    void setting(){
+    void setting(){         //여기다가 서버에서 가져온 정보로 리스트뷰 작성
+
+
+
+
+
+
 
     }
 
-    //그룹 생성 버튼
-    void create(){
+    //그룹 생성 버튼(끝)
+    void create(){              //인탠트에서 1을 넘겨주어야 한다.
 
+        Button cb = (Button)findViewById(R.id.create);
+        cb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, Startmap.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("mykey", mykey);              //자신의 고유번호를 넘겨준다.
+                intent.putExtra("mynickname", mynickname);    //닉네임도 넘겨준다.
+                String mycase = "1";
+                intent.putExtra("case", mycase);              //1을 넘김
+                startActivity(intent);
+
+            }
+        });
     }
 
-    //그룹 참가 버튼
-    void join(){
+    //그룹 참가 버튼(끝)
+    void join(){                //인탠트에서 2를 넘겨주어야 한다.
 
+        Button jb = (Button)findViewById(R.id.join);
+        jb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, Startmap.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("mykey", mykey);              //자신의 고유번호를 넘겨준다.
+                intent.putExtra("mynickname", mynickname);    //닉네임도 넘겨준다.
+                String mycase = "2";
+                intent.putExtra("case", mycase);              //1을 넘김
+                startActivity(intent);
+
+            }
+        });
     }
 
     //마이 페이지 버튼
@@ -58,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                 //이거 아래 2개 해줘야 뒤로가기 버튼 눌러도 뒤로 안가진다.
                 mypageIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 mypageIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                mypageIntent.putExtra("mykey", mykey);      //자신의 고유번호를 넘겨준다.
+                mypageIntent.putExtra("mykey", mykey);              //자신의 고유번호를 넘겨준다.
+                mypageIntent.putExtra("mynickname", mynickname);    //닉네임도 넘겨준다.
                 //시작
                 startActivity(mypageIntent);
 
@@ -66,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     //택시 호출 버튼
     void texicall(){
 

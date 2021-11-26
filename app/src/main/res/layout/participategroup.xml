@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="14"
+    android:orientation="vertical"
+    android:background="#F7D754"
+    tools:context=".MainActivity">
+
+    <!--뒤로가기 버튼과 상단 빈공간-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="39dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_weight="0.1"
+            app:srcCompat="@drawable/escape_icon" />
+
+        <TextView
+            android:layout_width="375dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0">
+
+        </TextView>
+
+        <!--참가자 프로필사진들-->
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5">
+        </TextView>
+
+        <ImageView
+            android:id="@+id/myimg"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:background="@drawable/roundprofile"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center">
+        </ImageView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/profile1"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:background="@drawable/roundprofile"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center">
+        </ImageView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"></TextView>
+        <ImageView
+            android:id="@+id/profile2"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:background="@drawable/roundprofile"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center">
+        </ImageView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"></TextView>
+
+        <ImageView
+            android:id="@+id/profile3"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:background="@drawable/roundprofile"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center">
+
+        </ImageView>
+    </LinearLayout>
+
+
+    <!--별점과 취소율표시-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="14dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+        <LinearLayout
+            android:layout_width="95dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:weightSum="3.5">
+
+            <TextView
+                android:id="@+id/mystars"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn점/5점"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17dp"></TextView>
+
+            <TextView
+                android:id="@+id/my_cancle_percentage"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn.n%"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:gravity="center"></TextView>
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+        <LinearLayout
+            android:layout_width="95dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:weightSum="3.5">
+
+            <TextView
+                android:id="@+id/stars1"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn점/5점"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17dp"></TextView>
+
+            <TextView
+                android:id="@+id/cancle_percentage1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn.n%"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:gravity="center"></TextView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="95dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:weightSum="3.5">
+
+            <TextView
+                android:id="@+id/stars2"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn점/5점"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17dp"></TextView>
+
+            <TextView
+                android:id="@+id/cancle_percentage2"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn.n%"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:gravity="center"></TextView>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+        <LinearLayout
+            android:layout_width="95dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:weightSum="3.5">
+
+            <TextView
+                android:id="@+id/stars3"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn점/5점"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17dp"></TextView>
+
+            <TextView
+                android:id="@+id/cancle_percentage3"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn.n%"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:gravity="center"></TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+    <!--출발날짜 와 시간-->
+    <TextView
+        android:layout_gravity="center"
+        android:background="@drawable/introduction"
+        android:layout_width="390dp"
+        android:layout_height="3dp"
+        android:layout_weight="0.3">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        android:weightSum="6">
+        <TextView
+            android:layout_width="13dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+        <LinearLayout
+            android:layout_width="95dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:weightSum="3.5"
+            android:layout_gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp">
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="출발 날짜"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18dp">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="10dp">
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="출발 시간"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:gravity="center">
+
+            </TextView>
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="10dp">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:weightSum="6">
+            <TextView
+                android:layout_width="25dp"
+                android:layout_height="match_parent">
+
+            </TextView>
+
+            <LinearLayout
+                android:layout_width="275dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:weightSum="3.5">
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp">
+                </TextView>
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/title"
+                    android:text="YYYY년 M월 DD일"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"></TextView>
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/title"
+                    android:text="TT시 MM분"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:gravity="center">
+
+                </TextView>
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp">
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_gravity="center"
+        android:background="@drawable/introduction"
+        android:layout_width="390dp"
+        android:layout_height="3dp"
+        android:layout_weight="0.2">
+    </TextView>
+
+    <!--지도가 들어가는 자리!-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="9dp">
+    </TextView>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="390dp"
+        android:layout_height="300dp"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+    </LinearLayout>
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="15dp">
+    </TextView>
+
+    <!--방 소갯말(제목)-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="3"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+        </TextView>
+
+        <TextView
+            android:id="@+id/introduction"
+            android:layout_width="380dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/introduction"
+            android:fontFamily="@font/title"
+            android:scaleType="centerCrop"
+            android:text="\n 선문대에서 아산역 같이 갈 사람 구함 \nㄴㅇㄱ"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"></TextView>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -80,7 +80,8 @@ public class Login extends AppCompatActivity {
                                         //이거 아래 2개 해줘야 뒤로가기 버튼 눌러도 뒤로 안가진다.
                                         loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        loginIntent.putExtra("mykey", ds2.getKey());      //자신의 고유번호를 넘겨준다.
+                                        loginIntent.putExtra("mykey", ds2.getKey());        //자신의 고유번호를 넘겨준다.
+                                        loginIntent.putExtra("mynickname", user.nickname);  //자신의 닉네임을 넘긴다.
                                         //시작
                                         startActivity(loginIntent);
 
@@ -116,7 +117,7 @@ public class Login extends AppCompatActivity {
                     }
                 });
 
-            }
+            }//클릭
         });
 
 
