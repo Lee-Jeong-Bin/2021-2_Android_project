@@ -126,6 +126,7 @@ public class Mypage extends AppCompatActivity {
 
                 }
 
+                //여기서 정렬하여 준다.
                 init();
 
             }
@@ -220,6 +221,7 @@ public class Mypage extends AppCompatActivity {
             }
         });
 
+        groups.sort(new CompareGroup<Group>());
         for (int i = 0; i < groups.size(); i++) {      //이거 돌려야 들어간다.
 
             adapter.addItem(groups.get(i));          //이거 해줘야 순서대로 다 들어간다.
