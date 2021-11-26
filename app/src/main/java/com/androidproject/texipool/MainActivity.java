@@ -8,7 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity {
+
+    //DB 관련
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     //나의 고유번호를 저장한다.
     private String mykey;
@@ -22,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
         mykey = getIntent().getStringExtra("mykey");
         mynickname = getIntent().getStringExtra("mynickname");
+
+        //파이어 베이스 데이터베이스 연동
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
 
         setting();
         create();

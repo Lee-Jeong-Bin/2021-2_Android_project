@@ -5,7 +5,7 @@
     android:shape="rectangle"
     >
     <!--배경 색-->
-    <solid android:color="#FF8B4513">
+    <solid android:color="#826523">
     </solid>
     <!--모서리 곡선-->
     <corners
