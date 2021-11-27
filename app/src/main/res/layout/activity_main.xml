@@ -17,64 +17,132 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:layout_marginTop="20dp"
-        android:layout_weight="1.4"
+        android:layout_weight="1.5"
         android:orientation="horizontal"
-        android:weightSum="4"
-        >
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/join"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:text="그룹 참여"
+            android:fontFamily="@font/title"
+            android:layout_weight="0"
+            android:background="@drawable/buttonshape"/>
 
         <Button
             android:id="@+id/create"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="5dp"
-            android:text="그룹 참여"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/join"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
             android:text="그룹 생성"
-            android:layout_weight="1"
+            android:fontFamily="@font/title"
+            android:layout_weight="0"
+            android:background="@drawable/buttonshape"
             />
 
         <ImageButton
             android:id="@+id/userButton"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="2"/>
+            android:layout_marginLeft="40dp"
+            android:background="@drawable/usershape"/>
     </LinearLayout>
 
     <LinearLayout
          android:layout_width="match_parent"
           android:layout_height="0dp"
-         android:layout_weight="8"
+         android:layout_weight="7"
          android:orientation="vertical"
          android:weightSum="8"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
+        android:paddingTop="20dp"
         android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-    >
+        android:paddingRight="50dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="    참가한 그룹"
+            android:textSize="20dp"
+            android:fontFamily="@font/title"
+            android:gravity="center|left"
+            android:textColor="@color/black"
+            android:background="@drawable/titleshape">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+        </TextView>
     <ListView
         android:id="@+id/listView1"
+        android:text="참가한 그룹"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="142dp"
-        android:layout_weight="3.5"/>
+        android:layout_weight="4"
+        android:background="#ECAD46"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="    예약된 그룹"
+            android:textSize="20dp"
+            android:fontFamily="@font/title"
+            android:gravity="center|left"
+            android:textColor="@color/black"
+            android:background="@drawable/titleshape">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+        </TextView>
 
     <ListView
         android:id="@+id/listView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        tools:layout_editor_absoluteX="27dp"
-        tools:layout_editor_absoluteY="142dp"
-        android:layout_weight="3.5"/>
+        android:layout_marginTop="0dp"
+        android:layout_weight="4"
+        android:background="#ECAD46"/>
 </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:layout_weight="1.5"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/callTaxi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="택시     호출"
+            android:fontFamily="@font/title"
+            android:background="@drawable/bigbuttonshape" />
+        </LinearLayout>
 
 </LinearLayout>

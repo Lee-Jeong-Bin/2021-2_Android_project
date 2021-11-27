@@ -67,14 +67,13 @@ public class Startmap extends AppCompatActivity {
                 }else {                         //그룹 참여
 
                     //토요일에 합치기
-
-
-
-
-
-
-
-
+                    Intent it = new Intent(Startmap.this, ListUI.class);
+                    it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    it.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
+                    it.putExtra("mynickname", nickname);        //자신의 닉네임을 넘긴다.
+                    //시작
+                    startActivity(it);
 
                 }
             }

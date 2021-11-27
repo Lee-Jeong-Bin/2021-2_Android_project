@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="10"
+    android:background="#F8D753"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.8"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/title"
+            android:textAlignment="center"
+            android:padding="15dp"
+            android:text="목적지에 도착하였습니다.\n 편안동행이 되셨나요 ?\n \n 같이 온 동승자에게 별점을 부여해주세요!">
+
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:weightSum="5"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.7"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:weightSum="4"
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/imageshape"
+                    android:layout_weight="2">
+
+                </ImageView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textAlignment="center"
+                    android:text="아이디"
+                    android:fontFamily="@font/title">
+
+                </TextView>
+
+            </LinearLayout>
+            <RatingBar
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.6"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:rating="5"
+                android:isIndicator="false"
+                android:progressTint="#F4AC19"
+                android:progressBackgroundTint="#F4AC19"
+                android:secondaryProgressTint="#F4AC19">
+            </RatingBar>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.7"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:weightSum="4"
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/imageshape"
+                    android:layout_weight="2">
+
+                </ImageView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="아이디"
+                    android:fontFamily="@font/title"
+                    android:textAlignment="center">
+
+                </TextView>
+
+            </LinearLayout>
+            <RatingBar
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.6"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:rating="5"
+                android:isIndicator="false"
+                android:progressTint="#F4AC19"
+                android:progressBackgroundTint="#F4AC19"
+                android:secondaryProgressTint="#F4AC19">
+            </RatingBar>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.7"
+            android:orientation="horizontal"
+            android:weightSum="6">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:weightSum="4"
+                android:orientation="vertical"
+                android:paddingLeft="20dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/imageshape"
+                    android:layout_weight="2">
+
+                </ImageView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="아이디"
+                    android:fontFamily="@font/title"
+                    android:textAlignment="center">
+
+                </TextView>
+
+            </LinearLayout>
+            <RatingBar
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3.6"
+                android:layout_gravity="center"
+                android:numStars="5"
+                android:rating="5"
+                android:isIndicator="false"
+                android:progressTint="#F4AC19"
+                android:progressBackgroundTint="#F4AC19"
+                android:secondaryProgressTint="#F4AC19">
+            </RatingBar>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2.2"
+        android:orientation="vertical"
+        android:weightSum="4">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+        </TextView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:text="모두에게 5점 부여하기                    >"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/title"
+            android:gravity="center|left"
+            android:textColor="@color/white"
+            android:background="@drawable/titleshape"
+            >
+
+        </Button>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0">
+
+        </TextView>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:text=" 별점 저장하기                               >"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/title"
+            android:gravity="center|left"
+            android:textColor="@color/white"
+            android:background="@drawable/titleshape">
+
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>
