@@ -2,6 +2,7 @@ package com.androidproject.texipool;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +49,14 @@ public class Mypage extends AppCompatActivity {
     public ChatRoomRecycleAdapter adapter;
     private TextView nickTextView;
 
+    //View
+    TextView stars;
+    RatingBar ratingBar;
+    TextView stars_people;
+    TextView cancle_percetage;
+    TextView reserve_count;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,17 @@ public class Mypage extends AppCompatActivity {
         //기본 세팅
         iv = findViewById(R.id.myimg);
         lv = (RecyclerView)findViewById(R.id.chatroom);
+        stars = (TextView)findViewById(R.id.stars);
+        ratingBar = (RatingBar)findViewById(R.id.listitemrating);
+        stars_people = (TextView)findViewById(R.id.stars_people);
+        cancle_percetage = (TextView)findViewById(R.id.cancle_percentage);
+        reserve_count = (TextView)findViewById(R.id.reserve_count);
+
+        MainActivity mainActivity = (MainActivity)MainActivity.mainActivity;
+        mainActivity.finish();
+
+
+
         setting();
         //프로필 사진 관련
         imageButton();
@@ -95,39 +116,79 @@ public class Mypage extends AppCompatActivity {
                 }
 
                 //평점 세팅
+                if(userInfo.stars == null || userInfo.stars.size() < 10){           //평점이 10회 미만인 경우  (평가 10회 미만)
+
+                    stars.setText("평가 10회 미만");
+                    stars_people.setText("10명 미만 평가");
+
+                }else{
+
+                    double estimate;
+                    double sum = 0;
+
+                    for(int i = 0; i < userInfo.stars.size(); i++){
+
+                        sum = sum + userInfo.stars.get(i);
+
+                    }
+                    estimate = sum / (double)userInfo.stars.size();
+
+                    stars.setText(Float.toString((float)(Math.round(estimate*100)/100.0)) + "점");
+                    ratingBar.setRating((float)(Math.round(estimate*100)/100.0));
+                    stars_people.setText(Integer.toString(userInfo.stars.size()) + "명 평가");
+
+                }
+
                 //취소율 세팅
+                if(userInfo.end_groups == null || userInfo.end_groups.size() + userInfo.fail_count < 10){   //평점이 10회 미만인 경우  (탑승 10회 미만)
+
+                    cancle_percetage.setText("탑승 10회 미만");
+                    reserve_count.setText("10회 미만 탑승");
+
+                }else{
+
+                    cancle_percetage.setText(String.format("%.2lf", (double)userInfo.fail_count / ((double)userInfo.end_groups.size()
+                            + (double)userInfo.fail_count)) + "%");
+                    reserve_count.setText(Integer.toString(userInfo.end_groups.size() + userInfo.fail_count) + "번 탑승");
+
+                }
+
 
 
 
 
 
                 //채팅방 세팅
-                groups_name = new ArrayList<String>();
-                DataSnapshot dsgroup = snapshot.child("Group");
-                for(DataSnapshot dsSelect : dsgroup.getChildren()){             //키 값으로 찾아 다닌다.
+                if(userInfo.groups != null){
 
-                    for(int i = 0; i < userInfo.groups.size(); i++){            //키값이 맞는게 있는지 확인한다.
+                    groups_name = new ArrayList<String>();
+                    DataSnapshot dsgroup = snapshot.child("Group");
+                    for(DataSnapshot dsSelect : dsgroup.getChildren()){             //키 값으로 찾아 다닌다.
 
-                        if(dsSelect.getKey().equals(userInfo.groups.get(i).toString())){        //키 값에 맞는 것을 발견
+                        for(int i = 0; i < userInfo.groups.size(); i++){            //키값이 맞는게 있는지 확인한다.
 
-                            groups_name.add(dsSelect.getKey());     //일치하는 키값을 저장
+                            if(dsSelect.getKey().equals(userInfo.groups.get(i).toString())){        //키 값에 맞는 것을 발견
+
+                                groups_name.add(dsSelect.getKey());     //일치하는 키값을 저장
+
+                            }
 
                         }
 
                     }
 
+                    //이제 얻은 키값으로 그룹들을 저장
+                    groups = new ArrayList<>();
+                    for(int j = 0; j < groups_name.size(); j++){
+
+                        groups.add(dsgroup.child(groups_name.get(j)).getValue(Group.class));
+
+                    }
+
+                    //여기서 정렬하여 준다.
+                    init();
+
                 }
-
-                //이제 얻은 키값으로 그룹들을 저장
-                groups = new ArrayList<>();
-                for(int j = 0; j < groups_name.size(); j++){
-
-                    groups.add(dsgroup.child(groups_name.get(j)).getValue(Group.class));
-
-                }
-
-                //여기서 정렬하여 준다.
-                init();
 
             }
 
@@ -199,6 +260,7 @@ public class Mypage extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         lv.setLayoutManager(linearLayoutManager);
+        lv.addItemDecoration(new DividerItemDecoration(this, 1));
 
         adapter = new ChatRoomRecycleAdapter();
         adapter.setOnItemClickListener(new ChatRoomRecycleAdapter.OnItemClickListener()

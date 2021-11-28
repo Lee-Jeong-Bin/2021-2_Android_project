@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
@@ -17,6 +18,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,6 +35,8 @@ import com.skt.Tmap.poi_item.TMapPOIItem;
 import java.util.ArrayList;
 
 public class Finishmap extends AppCompatActivity {
+
+    private Context context=this;
 
     private String mykey;
     private String nickname;
@@ -53,6 +57,8 @@ public class Finishmap extends AppCompatActivity {
     final String[] finish = new String[1];
     final double[] finishX = new double[1];
     final double[] finishY = new double[1];
+
+    final TMapPoint[] tMapPoint = {new TMapPoint(finishY[0], finishX[0])};
 
 
 
@@ -80,6 +86,7 @@ public class Finishmap extends AppCompatActivity {
 
 
         //여기다가 tmap 관련하여서 코딩
+        InputMethodManager manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);  // 키패드 컨트롤
 
         keywordView = (EditText) findViewById(R.id.finish_edit_keyword);
         listView = (ListView) findViewById(R.id.finish_listView);
@@ -134,6 +141,17 @@ public class Finishmap extends AppCompatActivity {
                 System.out.println("도착 지역 : " + poi.item.getPOIName());
                 System.out.println("도착 위도 : " + poi.item.getPOIPoint().getLatitude());
                 System.out.println("도착 경도 : " + poi.item.getPOIPoint().getLongitude());
+
+
+                TMapMarkerItem item = new TMapMarkerItem();
+                tMapPoint[0] = new TMapPoint(poi.item.getPOIPoint().getLatitude(), poi.item.getPOIPoint().getLongitude());
+                item.setTMapPoint(tMapPoint[0]);
+                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.red);
+                item.setIcon(bitmap);
+                item.setPosition(0.5f, 1);
+                mapView.addMarkerItem("item", item);
+                manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS); // 키패드 내리기
+
             }
         });
 
@@ -203,7 +221,6 @@ public class Finishmap extends AppCompatActivity {
                             mAdapter.clear();
 
                             for (TMapPOIItem poi : arrayList) {
-                                addMarker(poi);
                                 mAdapter.add(new POI(poi));
                             }
 
@@ -218,32 +235,11 @@ public class Finishmap extends AppCompatActivity {
         }
     }
 
-    public void addMarker(TMapPOIItem poi) {
-        TMapMarkerItem item = new TMapMarkerItem();
-        item.setTMapPoint(poi.getPOIPoint());
-        Bitmap icon = ((BitmapDrawable) ContextCompat.getDrawable(this, android.R.drawable.ic_input_add)).getBitmap();
-        item.setIcon(icon);
-        item.setPosition(0.5f, 1);
-        item.setCalloutTitle(poi.getPOIName());
-        item.setCalloutSubTitle(poi.getPOIContent());
-        Bitmap left = ((BitmapDrawable) ContextCompat.getDrawable(this, android.R.drawable.ic_dialog_alert)).getBitmap();
-        item.setCalloutLeftImage(left);
-        Bitmap right = ((BitmapDrawable) ContextCompat.getDrawable(this, android.R.drawable.ic_input_get)).getBitmap();
-        item.setCalloutRightButtonImage(right);
-        item.setCanShowCallout(true);
-        mapView.addMarkerItem(poi.getPOIID(), item);
-    }
-    int id = 0;
-
     boolean isInitialized = false;
 
     private void setupMap() {
         isInitialized = true;
         mapView.setMapType(TMapView.MAPTYPE_STANDARD);
-        //        mapView.setSightVisible(true);
-        //        mapView.setCompassMode(true);
-        //        mapView.setTrafficInfo(true);
-        //        mapView.setTrackingMode(true);
         if (cacheLocation != null) {
             moveMap(cacheLocation.getLatitude(), cacheLocation.getLongitude());
             setMyLocation(cacheLocation.getLatitude(), cacheLocation.getLongitude());

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PointF;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,6 +19,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +36,8 @@ import com.skt.Tmap.poi_item.TMapPOIItem;
 import java.util.ArrayList;
 
 public class Startmap extends AppCompatActivity {
+
+    private Context context=this;
 
     private String mykey;
     private String nickname;
@@ -53,11 +57,16 @@ public class Startmap extends AppCompatActivity {
     final double[] startX = new double[1];
     final double[] startY = new double[1];
 
+    final TMapPoint[] tMapPoint = {new TMapPoint(startY[0], startX[0])};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_map);
+
+        MainActivity mainActivity = (MainActivity)MainActivity.mainActivity;
+        mainActivity.finish();
 
         setting();
         next();
@@ -78,6 +87,8 @@ public class Startmap extends AppCompatActivity {
         listView.setVisibility(listView.INVISIBLE);
         mAdapter = new ArrayAdapter<POI>(this, android.R.layout.simple_list_item_1);
         listView.setAdapter(mAdapter);
+
+        InputMethodManager manager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);  // 키패드 컨트롤
 
         ImageButton b2 = (ImageButton)findViewById(R.id.start_nextbtn); //도착지 지도화면에서 다음 버튼 (게시글 작성화면)
 
@@ -127,6 +138,17 @@ public class Startmap extends AppCompatActivity {
                 System.out.println("출발 지역 : " + poi.item.getPOIName());
                 System.out.println("출발 위도 : " + poi.item.getPOIPoint().getLatitude());
                 System.out.println("출발 경도 : " + poi.item.getPOIPoint().getLongitude());
+
+                TMapMarkerItem item = new TMapMarkerItem();
+                tMapPoint[0] = new TMapPoint(poi.item.getPOIPoint().getLatitude(), poi.item.getPOIPoint().getLongitude());
+                item.setTMapPoint(tMapPoint[0]);
+                Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.blue);
+                item.setIcon(bitmap);
+                item.setPosition(0.5f, 1);
+                mapView.addMarkerItem("item", item);
+                manager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS); // 키패드 내리기
+
+
             }
         });
     }
@@ -205,7 +227,6 @@ public class Startmap extends AppCompatActivity {
                             mAdapter.clear();
 
                             for (TMapPOIItem poi : arrayList) {
-                                addMarker(poi);
                                 mAdapter.add(new POI(poi));
                             }
 
@@ -220,32 +241,11 @@ public class Startmap extends AppCompatActivity {
         }
     }
 
-    public void addMarker(TMapPOIItem poi) {
-        TMapMarkerItem item = new TMapMarkerItem();
-        item.setTMapPoint(poi.getPOIPoint());
-        Bitmap icon = ((BitmapDrawable) ContextCompat.getDrawable(this, android.R.drawable.ic_input_add)).getBitmap();
-        item.setIcon(icon);
-        item.setPosition(0.5f, 1);
-        item.setCalloutTitle(poi.getPOIName());
-        item.setCalloutSubTitle(poi.getPOIContent());
-        Bitmap left = ((BitmapDrawable) ContextCompat.getDrawable(this, android.R.drawable.ic_dialog_alert)).getBitmap();
-        item.setCalloutLeftImage(left);
-        Bitmap right = ((BitmapDrawable) ContextCompat.getDrawable(this, android.R.drawable.ic_input_get)).getBitmap();
-        item.setCalloutRightButtonImage(right);
-        item.setCanShowCallout(true);
-        mapView.addMarkerItem(poi.getPOIID(), item);
-    }
-    int id = 0;
-
     boolean isInitialized = false;
 
     private void setupMap() {
         isInitialized = true;
         mapView.setMapType(TMapView.MAPTYPE_STANDARD);
-        //        mapView.setSightVisible(true);
-        //        mapView.setCompassMode(true);
-        //        mapView.setTrafficInfo(true);
-        //        mapView.setTrackingMode(true);
         if (cacheLocation != null) {
             moveMap(cacheLocation.getLatitude(), cacheLocation.getLongitude());
             setMyLocation(cacheLocation.getLatitude(), cacheLocation.getLongitude());

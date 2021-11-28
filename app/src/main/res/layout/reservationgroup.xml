@@ -48,14 +48,14 @@
                 android:layout_weight="2.5">
             </TextView>
 <!--얘도 id 붙여-->
+
             <ImageView
-                android:id="@+id/myimg"
+                android:id="@+id/profile1"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
+                android:layout_gravity="center"
                 android:background="@drawable/roundprofile"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center">
-            </ImageView>
+                android:scaleType="centerCrop"></ImageView>
 
             <TextView
                 android:layout_width="0dp"
@@ -65,18 +65,6 @@
             </TextView>
 
             <ImageView
-                android:id="@+id/profile1"
-                android:layout_width="95dp"
-                android:layout_height="95dp"
-                android:background="@drawable/roundprofile"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center">
-            </ImageView>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"></TextView>
-            <ImageView
                 android:id="@+id/profile2"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
@@ -84,6 +72,18 @@
                 android:scaleType="centerCrop"
                 android:layout_gravity="center">
             </ImageView>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"></TextView>
+            <ImageView
+                android:id="@+id/profile3"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:background="@drawable/roundprofile"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center">
+            </ImageView>
 
             <TextView
                 android:layout_width="0dp"
@@ -91,7 +91,7 @@
                 android:layout_weight="0.5"></TextView>
 
             <ImageView
-                android:id="@+id/profile3"
+                android:id="@+id/profile4"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
                 android:layout_gravity="center"
@@ -119,28 +119,28 @@
             android:weightSum="3.5">
 
             <TextView
-                android:id="@+id/mystars"
+                android:id="@+id/stars1"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
+                android:gravity="center|bottom"
                 android:layout_weight="1"
                 android:fontFamily="@font/title"
                 android:text="nn점/5점"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="17dp"></TextView>
+                android:autoSizeTextType="uniform"></TextView>
 
             <TextView
-                android:id="@+id/my_cancle_percentage"
+                android:id="@+id/cancle_percentage1"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
+                android:gravity="center|top"
+                android:layout_weight="1"
                 android:fontFamily="@font/title"
                 android:text="nn.n%"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="17dp"
-                android:gravity="center"></TextView>
+                android:autoSizeTextType="uniform"></TextView>
 
 
     </LinearLayout>
@@ -156,73 +156,36 @@
             android:weightSum="3.5">
 
             <TextView
-                android:id="@+id/stars1"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:fontFamily="@font/title"
-                android:text="nn점/5점"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="17dp"></TextView>
-
-            <TextView
-                android:id="@+id/cancle_percentage1"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:fontFamily="@font/title"
-                android:text="nn.n%"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="17dp"
-                android:gravity="center"></TextView>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="2dp"
-            android:layout_height="match_parent">
-
-        </TextView>
-
-        <LinearLayout
-            android:layout_width="95dp"
-            android:layout_height="80dp"
-            android:orientation="vertical"
-            android:weightSum="3.5">
-
-            <TextView
                 android:id="@+id/stars2"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
+                android:gravity="center|bottom"
                 android:layout_weight="1"
                 android:fontFamily="@font/title"
                 android:text="nn점/5점"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="17dp"></TextView>
+                android:autoSizeTextType="uniform"></TextView>
 
             <TextView
                 android:id="@+id/cancle_percentage2"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
+                android:gravity="center|top"
                 android:layout_weight="1"
                 android:fontFamily="@font/title"
                 android:text="nn.n%"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="17dp"
-                android:gravity="center"></TextView>
-
+                android:autoSizeTextType="uniform"></TextView>
         </LinearLayout>
+
         <TextView
             android:layout_width="2dp"
             android:layout_height="match_parent">
 
         </TextView>
+
         <LinearLayout
             android:layout_width="95dp"
             android:layout_height="80dp"
@@ -233,26 +196,62 @@
                 android:id="@+id/stars3"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
+                android:gravity="center|bottom"
                 android:layout_weight="1"
                 android:fontFamily="@font/title"
                 android:text="nn점/5점"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="17dp"></TextView>
+                android:autoSizeTextType="uniform"></TextView>
 
             <TextView
                 android:id="@+id/cancle_percentage3"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:layout_gravity="center"
+                android:gravity="center|top"
                 android:layout_weight="1"
                 android:fontFamily="@font/title"
                 android:text="nn.n%"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="17dp"
-                android:gravity="center"></TextView>
+                android:autoSizeTextType="uniform"
+                ></TextView>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="2dp"
+            android:layout_height="match_parent">
+
+        </TextView>
+        <LinearLayout
+            android:layout_width="95dp"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:weightSum="3.5">
+
+            <TextView
+                android:id="@+id/stars4"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center|bottom"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn점/5점"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:autoSizeTextType="uniform"></TextView>
+
+            <TextView
+                android:id="@+id/cancle_percentage4"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:gravity="center|top"
+                android:layout_weight="1"
+                android:fontFamily="@font/title"
+                android:text="nn.n%"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:autoSizeTextType="uniform"></TextView>
 
         </LinearLayout>
     </LinearLayout>
@@ -349,7 +348,7 @@
                 <TextView
                     android:id="@+id/date"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:fontFamily="@font/title"
@@ -362,7 +361,7 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"></TextView>
+                    android:layout_height="5dp"></TextView>
 
                 <TextView
                     android:id="@+id/time"
@@ -401,8 +400,7 @@
         android:layout_height="9dp">
     </TextView>
 
-    <LinearLayout
-        android:id="@+id/map"
+    <FrameLayout
         android:layout_gravity="center"
         android:layout_width="390dp"
         android:layout_height="0dp"
@@ -410,7 +408,13 @@
         android:orientation="horizontal"
         android:weightSum="6">
 
-    </LinearLayout>
+        <com.skt.Tmap.TMapView
+            android:id="@+id/map_reserve"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.skt.Tmap.TMapView>
+
+    </FrameLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="20dp">
@@ -441,6 +445,7 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"
+            android:clickable="true"
             android:gravity="center">
         </TextView>
 
@@ -463,8 +468,10 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true">
         </TextView>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -472,7 +479,7 @@
         </TextView>
 
         <TextView
-            :id="@+id/arrival"
+            android:id="@+id/arrival"
             android:layout_width="130dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -483,7 +490,8 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:gravity="center"></TextView>
+            android:gravity="center"
+            android:clickable="true"></TextView>
 
     </LinearLayout>
 

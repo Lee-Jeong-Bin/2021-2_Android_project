@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="90dp"
+    android:layout_height="70dp"
     android:weightSum="5"
     android:background="#ECAD46">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.5"
+        android:layout_weight="3"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -19,7 +19,7 @@
             android:layout_weight="1"
             android:text="목적지"
             android:gravity="center"
-            android:textSize="23dp"
+            android:textSize="27dp"
             android:fontFamily="@font/title"
             android:textColor="@color/black">
        </TextView>
@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:text="인원"
             android:gravity="center"
-            android:textSize="23dp"
+            android:textSize="27dp"
             android:fontFamily="@font/title"
             android:textColor="@color/black">
         </TextView>
@@ -64,7 +64,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2.5">
+        android:layout_weight="2">
 
         <TextView
             android:id="@+id/destination"
@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:text="아산역"
             android:gravity="center"
-            android:textSize="25dp"
+            android:textSize="15dp"
             android:fontFamily="@font/title"
             android:textColor="@color/black"
             android:singleLine="true"
@@ -87,7 +87,7 @@
             android:layout_weight="1"
             android:text="2명"
             android:gravity="center"
-            android:textSize="25dp"
+            android:textSize="15dp"
             android:fontFamily="@font/title"
             android:textColor="@color/black">
         </TextView>
@@ -111,7 +111,7 @@
             android:layout_weight="1"
             android:text="10시 30분"
             android:gravity="center"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:fontFamily="@font/title"
             android:textColor="@color/black"
             android:singleLine="true"

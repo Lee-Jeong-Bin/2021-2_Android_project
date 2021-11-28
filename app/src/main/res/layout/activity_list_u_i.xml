@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="10"
-    android:background="#FFFFD700"
+    android:background="#F8D754"
     tools:context=".ListUI">
 
     <!--타이틀-->
@@ -93,86 +93,7 @@
         </Button>
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="7"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_gravity="center">
-        </TextView>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="도착지"
-            android:textColor="@color/black"
-            android:background="#FFFFFF00">
-        </TextView>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="모집인원"
-            android:textColor="@color/black"
-            android:background="#FFFFFF00">
-        </TextView>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="탑승날짜"
-            android:textColor="@color/black"
-            android:background="#FFFFFF00">
-        </TextView>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="탑승시간"
-            android:textColor="@color/black"
-            android:background="#FFFFFF00">
-        </TextView>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="예상금액"
-            android:textColor="@color/black"
-            android:background="#FFFFFF00">
-        </TextView>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="입장"
-            android:textColor="@color/black"
-            android:background="#FFFFFF00">
-        </TextView>
-
-    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -182,15 +103,17 @@
         android:weightSum="10"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp">
-        <ListView
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/glist"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             tools:layout_editor_absoluteX="30dp"
             tools:layout_editor_absoluteY="142dp"
             >
-        </ListView>
+        </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
 
 

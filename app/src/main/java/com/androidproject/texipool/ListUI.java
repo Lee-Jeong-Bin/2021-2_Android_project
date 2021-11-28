@@ -1,6 +1,9 @@
 package com.androidproject.texipool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,8 +39,9 @@ public class ListUI extends AppCompatActivity {
     private ArrayList<Group> searchlist = new ArrayList<Group>();
     private Button lookupButton;
 
-    //아이디와 비밀번호가 일치할 경우 0, 아이디 실패 1, 비번 실패 2
-    int trigger = 1;
+    //리스트
+    private RecyclerView lv;
+    public ChatRoomRecycleAdapter adapter;
 
     //스피너 관련
     Spinner distance;
@@ -73,6 +77,8 @@ public class ListUI extends AppCompatActivity {
         nickname = getIntent().getStringExtra("mynickname");
         startx = Double.parseDouble(getIntent().getStringExtra("startX"));
         starty = Double.parseDouble(getIntent().getStringExtra("startY"));
+
+        lv = (RecyclerView)findViewById(R.id.glist);
 
 
         movemain();
@@ -117,12 +123,6 @@ public class ListUI extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-
-
-
-
-
-
     }
 
 
@@ -142,6 +142,7 @@ public class ListUI extends AppCompatActivity {
                             for(DataSnapshot ds1 : snapshot.getChildren()){
 
                                 Group gp = ds1.getValue(Group.class); // 그룹 클래스의 정보들을 객체에 저장
+                                gp.aid = ds1.getKey();
                                 fulllist.add(gp); // 정보들을 fulllist 배열에 저장
                             }
 
@@ -163,35 +164,54 @@ public class ListUI extends AppCompatActivity {
                                         }
                                     }
                                 }
+                                init();
+                                break;
 
-                                    //청소하기
-                                    row.clear();
-                                    dataArray.clear();
 
-                                    for(int i = 0; i < searchlist.size(); i++){
-                                        MainData md2 = new MainData(searchlist.get(i).destination,Integer.toString(searchlist.get(i).users.size()),
-                                                Integer.toString(searchlist.get(i).year) + "-" +
-                                                        Integer.toString(searchlist.get(i).month)+ "-"
-                                                        + Integer.toString(searchlist.get(i).day),
-                                                Integer.toString(searchlist.get(i).start_hours) + "시 " +
-                                                        Integer.toString(searchlist.get(i).start_minutes) + "분");
-                                        row.add(md2.returnME());
-                                        dataArray.clear();
+                                case "500": for(int i = 0; i < fulllist.size(); i++){
+
+                                    if (fulllist.get(i).start_x < startx + 0.005 && fulllist.get(i).start_x > startx - 0.005) {  // 출발지 위도가 출발지 위도+-300M 이고
+
+                                        System.out.println("들어옴?");
+
+                                        if (fulllist.get(i).start_y < starty + 0.005 && fulllist.get(i).start_y > starty - 0.005) { //출발지 경도가 출발지 경도+-300M 이면
+                                            //잘 들어옴
+                                            searchlist.add(fulllist.get(i));     //저장 완료
+                                        }
                                     }
-                                    ArrayAdapter arrayAdapter = new ArrayAdapter(ListUI.this,android.R.layout.simple_list_item_1, row);
-                                    xListView = (ListView)findViewById(R.id.glist);
-                                    xListView.setAdapter(arrayAdapter);
-
-
-
+                                }
+                                    init();
                                     break;
 
+                                case "700": for(int i = 0; i < fulllist.size(); i++){
 
-                                case "500":
+                                    if (fulllist.get(i).start_x < startx + 0.007 && fulllist.get(i).start_x > startx - 0.007) {  // 출발지 위도가 출발지 위도+-300M 이고
 
-                                case "700":
+                                        System.out.println("들어옴?");
 
-                                case "1000":
+                                        if (fulllist.get(i).start_y < starty + 0.007 && fulllist.get(i).start_y > starty - 0.007) { //출발지 경도가 출발지 경도+-300M 이면
+                                            //잘 들어옴
+                                            searchlist.add(fulllist.get(i));     //저장 완료
+                                        }
+                                    }
+                                }
+                                    init();
+                                    break;
+
+                                case "1000": for(int i = 0; i < fulllist.size(); i++){
+
+                                    if (fulllist.get(i).start_x < startx + 0.01 && fulllist.get(i).start_x > startx - 0.01) {  // 출발지 위도가 출발지 위도+-300M 이고
+
+                                        System.out.println("들어옴?");
+
+                                        if (fulllist.get(i).start_y < starty + 0.01 && fulllist.get(i).start_y > starty - 0.01) { //출발지 경도가 출발지 경도+-300M 이면
+                                            //잘 들어옴
+                                            searchlist.add(fulllist.get(i));     //저장 완료
+                                        }
+                                    }
+                                }
+                                    init();
+                                    break;
 
                             }
                         }
@@ -204,5 +224,58 @@ public class ListUI extends AppCompatActivity {
                 } catch(Exception e){}
             }
         });
+    }
+
+    private void init() {
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        lv.setLayoutManager(linearLayoutManager);
+        lv.addItemDecoration(new DividerItemDecoration(this, 1));
+
+        for(int i = 0; i < searchlist.size(); i++){
+
+            if(searchlist.get(i).limit_person + 1 == searchlist.get(i).users.size()){       //인원이 다 찬 경우
+
+                searchlist.remove(i);       //목록에서 삭제
+
+            }
+        }
+
+        searchlist.sort(new CompareGroup<Group>());
+        ArrayList<String> groups_name = new ArrayList<String>();
+        for(int i = 0; i < searchlist.size(); i++){
+
+            groups_name.add(searchlist.get(i).aid);
+
+        }
+
+        adapter = new ChatRoomRecycleAdapter();
+        adapter.setOnItemClickListener(new ChatRoomRecycleAdapter.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(View v, int pos)
+            {
+                // 실행 내용
+                System.out.println(groups_name.get(pos));
+
+                //이제 여기다가 채팅방 이동을 넣으면 된다.
+                Intent chatIntent = new Intent(ListUI.this, Participategroup.class);
+                chatIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                chatIntent.putExtra("mykey",mykey);                       //자신의 키를 넘긴다.
+                chatIntent.putExtra("mygroup",groups_name.get(pos));      //그룹의 키를 넘긴다.
+                chatIntent.putExtra("mynickname", nickname);              //자신의 닉네임을 넘긴다.
+                chatIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(chatIntent);
+
+            }
+        });
+        for (int i = 0; i < searchlist.size(); i++) {      //이거 돌려야 들어간다.
+
+            adapter.addItem(searchlist.get(i));          //이거 해줘야 순서대로 다 들어간다.
+
+        }
+        lv.setAdapter(adapter);
+
+
     }
 }

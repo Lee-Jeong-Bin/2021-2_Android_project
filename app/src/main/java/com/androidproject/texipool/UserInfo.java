@@ -9,8 +9,8 @@ public class UserInfo {
     //회원 계정에 관련되 클래스
     public int count = 0;                       //그룹에 참가한 횟수
     public int fail_count = 0;                  //그룹 탈퇴 횟수
-    public List stars = null;                   //평점을 전부 저장
-    public List estimate_people = null;         //평점을 부여한 사람 저장
+    public List<Double> stars = null;                   //평점을 전부 저장
+    public List<String> estimate_people = null;         //평점을 부여한 사람 저장
     public String img = null;                     //이진 파일로 실제 이미지가 여기 들어 있다.
 
     public List<String> groups = null;                  //진행 중인 그룹 리스트

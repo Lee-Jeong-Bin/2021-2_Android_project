@@ -208,7 +208,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.8"
-                android:text="nn명 탑승"
+                android:text="nn명 평가"
                 android:textColor="#322610"
                 android:fontFamily="@font/title"
                 android:gravity="center|right">

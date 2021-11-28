@@ -24,6 +24,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static MainActivity mainActivity;
+
     //DB 관련
     private FirebaseDatabase database;
     private DatabaseReference myRef;
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         reserve_listview = (ListView)findViewById(R.id.listView1);
         end_listview = (ListView)findViewById(R.id.listView2);
 
+        mainActivity = MainActivity.this;
+
         setting();
         create();
         join();
@@ -75,98 +79,86 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                //제일 처음 유저 정보를 가져온다.
-                myinfo = snapshot.child("UserInfo").child(mykey).getValue(UserInfo.class);
-                if(myinfo.groups == null){
-                    myinfo.groups = new ArrayList<String>();
-                }
-                if(myinfo.end_groups == null){          //종료 삑사리 안터지게 함.
-                    myinfo.end_groups = new ArrayList<String>();
-                }
+                try {
 
-                //예약 그룹부터 가져온다.
-                for(int i = 0; i < myinfo.groups.size(); i++){
+                    //제일 처음 유저 정보를 가져온다.
+                    myinfo = snapshot.child("UserInfo").child(mykey).getValue(UserInfo.class);
 
-                    Group gp = snapshot.child("Group").child(myinfo.groups.get(i)).getValue(Group.class);
-                    gp.aid = myinfo.groups.get(i);
-                    reserve.add(gp);
+                    if (myinfo.groups == null) {
+                        myinfo.groups = new ArrayList<String>();
+                    }
+                    if (myinfo.end_groups == null) {          //종료 삑사리 안터지게 함.
+                        myinfo.end_groups = new ArrayList<String>();
+                    }
 
-                }
-                //종료 그룹부터 가져온다.
-                for(int j = 0; j < myinfo.end_groups.size(); j++){
+                    //예약 그룹부터 가져온다.
+                    for (int i = 0; i < myinfo.groups.size(); i++) {
 
-                    //end 그룹을 하나 만들기
-                    Group gp = snapshot.child("EndGroup").child(myinfo.end_groups.get(j)).getValue(Group.class);
-                    end.add(gp);
-
-                }
-                //정렬하기
-                reserve.sort(new CompareGroup<Group>());
-                end.sort(new CompareGroup<Group>());
-
-                //예약 어뎁터 작성하기
-
-                for(int i = 0; i < reserve.size(); i++){            //예약 그룹 숫자만큼 반복
-
-                    /*
-                    MainData md2 = new MainData(reserve.get(i).destination,Integer.toString(reserve.get(i).users.size()),
-                            Integer.toString(reserve.get(i).year) + "-" +
-                                    Integer.toString(reserve.get(i).month)+ "-"
-                                    + Integer.toString(reserve.get(i).day),
-                            Integer.toString(reserve.get(i).start_hours) + "시 " +
-                            Integer.toString(reserve.get(i).start_minutes) + "분");
-                     */
-
-
-                    String msg =  "*" + reserve.get(i).destination + "*   " + Integer.toString(reserve.get(i).users.size()) + "명   "
-                            + Integer.toString(reserve.get(i).year) + "년" +
-                            Integer.toString(reserve.get(i).month)+ "월"
-                            + Integer.toString(reserve.get(i).day) + "일 "
-                            +Integer.toString(reserve.get(i).start_hours) + "시 " +
-                            Integer.toString(reserve.get(i).start_minutes) + "분";
-
-
-                    dataArray.add(msg);
-
-
-                    //row.add(md2.returnME());
-                    //dataArray.clear();
-
-
-
-                }//for문 끝
-
-                ArrayAdapter arrayAdapter= new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, dataArray);
-
-                reserve_listview.setAdapter(arrayAdapter);
-                reserve_listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        Intent intent = new Intent(MainActivity.this, Reservationgroup.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
-                        intent.putExtra("mynickname", mynickname);      //닉네임도 넘겨준다.
-                        intent.putExtra("GroupKey",reserve.get(i).aid); //그룹 키값을 넘겨준다.
-                        startActivity(intent);
+                        Group gp = snapshot.child("Group").child(myinfo.groups.get(i)).getValue(Group.class);
+                        gp.aid = myinfo.groups.get(i);
+                        reserve.add(gp);
 
                     }
-                });
 
 
+                    //종료 그룹부터 가져온다.
+                    for (int j = 0; j < myinfo.end_groups.size(); j++) {
+
+                        System.out.println("왜?");
+
+                        //end 그룹을 하나 만들기
+                        Group gp2 = snapshot.child("EndGroup").child(myinfo.end_groups.get(j)).getValue(Group.class);
+                        gp2.aid = myinfo.end_groups.get(j);
+                        end.add(gp2);
+
+                    }
+
+                    //정렬하기
+                    reserve.sort(new CompareGroup<Group>());
+                    end.sort(new CompareGroup<Group>());
+
+                    //예약 어뎁터 작성하기
+
+                    for (int i = 0; i < reserve.size(); i++) {            //예약 그룹 숫자만큼 반복
 
 
+                        String msg = "*" + reserve.get(i).destination + "*   " + Integer.toString(reserve.get(i).users.size()) + "명   "
+                                + Integer.toString(reserve.get(i).year) + "년" +
+                                Integer.toString(reserve.get(i).month) + "월"
+                                + Integer.toString(reserve.get(i).day) + "일 "
+                                + Integer.toString(reserve.get(i).start_hours) + "시 " +
+                                Integer.toString(reserve.get(i).start_minutes) + "분";
 
 
-
-                //종료 어뎁터 작성하기
-
+                        dataArray.add(msg);
 
 
+                    }//for문 끝
+
+                    ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, dataArray);
+
+                    reserve_listview.setAdapter(arrayAdapter);
+                    reserve_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                            Intent intent = new Intent(MainActivity.this, Reservationgroup.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
+                            intent.putExtra("mynickname", mynickname);      //닉네임도 넘겨준다.
+                            intent.putExtra("GroupKey", reserve.get(i).aid); //그룹 키값을 넘겨준다.
+                            intent.putExtra("end", Integer.toString(0));
+                            startActivity(intent);
+
+                        }
+                    });
 
 
+                    //종료 어뎁터 작성하기
+
+                }catch (Exception e){}
             }
 
             @Override
