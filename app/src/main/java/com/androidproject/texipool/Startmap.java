@@ -161,6 +161,9 @@ public class Startmap extends AppCompatActivity {
                     it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     it.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
                     it.putExtra("mynickname", nickname);        //자신의 닉네임을 넘긴다.
+                    it.putExtra("start", start[0]);
+                    it.putExtra("startX", Double.toString(startX[0]));
+                    it.putExtra("startY", Double.toString(startY[0]));
                     //시작
                     startActivity(it);
 

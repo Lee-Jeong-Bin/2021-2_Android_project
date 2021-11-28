@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.google.firebase.database.ChildEventListener;
@@ -20,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class ListUI extends AppCompatActivity {
 
@@ -39,8 +41,22 @@ public class ListUI extends AppCompatActivity {
 
     //스피너 관련
     Spinner distance;
-
     String dis;
+
+    ArrayList<Group> fulllist;
+
+    //행과 실제 칼럼 ArrayList
+    ArrayList<ArrayList<String>> row = new ArrayList<ArrayList<String>>();
+    ArrayList<String> dataArray = new ArrayList<String>();
+
+    //리스트뷰
+    ListView xListView;
+
+    private double startx;              //위도
+    private double starty;              //경도
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +71,9 @@ public class ListUI extends AppCompatActivity {
         //인탠트로 받아온다.
         mykey = getIntent().getStringExtra("mykey");
         nickname = getIntent().getStringExtra("mynickname");
+        startx = Double.parseDouble(getIntent().getStringExtra("startX"));
+        starty = Double.parseDouble(getIntent().getStringExtra("startY"));
+
 
         movemain();
         combobox();
@@ -91,13 +110,19 @@ public class ListUI extends AppCompatActivity {
         disSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String distance = disSpinner.getSelectedItem().toString(); // 스피너 선택값 가져오기
-                Log.d("거리",distance); //확인
+                dis = disSpinner.getSelectedItem().toString(); // 스피너 선택값 가져오기
+                Log.d("거리",dis); //확인
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+
+
+
+
+
     }
 
 
@@ -109,19 +134,64 @@ public class ListUI extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    System.out.println(dis);
                     myRef.child("Group").addValueEventListener(new ValueEventListener() {     //데이터베이스 검색 (이 줄때문에 조회버튼 누르면 앱이 종료됨.)
                         @Override
                         public void onDataChange(DataSnapshot snapshot) { //데이터베이스 상황 저장
-                            ArrayList<Group> fulllist = new ArrayList<Group>(); // Group에 대한 fulllist 배열 생성
+                            fulllist = new ArrayList<Group>(); // Group에 대한 fulllist 배열 생성
+                            searchlist = new ArrayList<Group>();
                             for(DataSnapshot ds1 : snapshot.getChildren()){
 
                                 Group gp = ds1.getValue(Group.class); // 그룹 클래스의 정보들을 객체에 저장
                                 fulllist.add(gp); // 정보들을 fulllist 배열에 저장
+                            }
+
+                            //조회를 바탕으로 출력한다.
+                            StringTokenizer st = new StringTokenizer(dis,"M");
+                            dis = st.nextToken();
+
+                            switch (dis){           //완성
+
+                                case "300": for(int i = 0; i < fulllist.size(); i++){
+
+                                    if (fulllist.get(i).start_x < startx + 0.003 && fulllist.get(i).start_x > startx - 0.003) {  // 출발지 위도가 출발지 위도+-300M 이고
+
+                                        System.out.println("들어옴?");
+
+                                        if (fulllist.get(i).start_y < starty + 0.003 && fulllist.get(i).start_y > starty - 0.003) { //출발지 경도가 출발지 경도+-300M 이면
+                                            //잘 들어옴
+                                            searchlist.add(fulllist.get(i));     //저장 완료
+                                        }
+                                    }
+                                }
+
+                                    //청소하기
+                                    row.clear();
+                                    dataArray.clear();
+
+                                    for(int i = 0; i < searchlist.size(); i++){
+                                        MainData md2 = new MainData(searchlist.get(i).destination,Integer.toString(searchlist.get(i).users.size()),
+                                                Integer.toString(searchlist.get(i).year) + "-" +
+                                                        Integer.toString(searchlist.get(i).month)+ "-"
+                                                        + Integer.toString(searchlist.get(i).day),
+                                                Integer.toString(searchlist.get(i).start_hours) + "시 " +
+                                                        Integer.toString(searchlist.get(i).start_minutes) + "분");
+                                        row.add(md2.returnME());
+                                        dataArray.clear();
+                                    }
+                                    ArrayAdapter arrayAdapter = new ArrayAdapter(ListUI.this,android.R.layout.simple_list_item_1, row);
+                                    xListView = (ListView)findViewById(R.id.glist);
+                                    xListView.setAdapter(arrayAdapter);
 
 
-                                //조회를 바탕으로 출력한다.
 
+                                    break;
+
+
+                                case "500":
+
+                                case "700":
+
+                                case "1000":
 
                             }
                         }

@@ -99,10 +99,10 @@
     </string-array>
 
     <string-array name="distance">
-        <item> 100M</item>
         <item> 300M</item>
         <item> 500M</item>
-        <item> 1KM</item>
+        <item> 700M</item>
+        <item> 1000M</item>
     </string-array>
 
     <string-array name="year">

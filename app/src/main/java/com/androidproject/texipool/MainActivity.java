@@ -6,8 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
     List<Group> reserve = new ArrayList<Group>();       //예약 그룹들
     List<Group> end = new ArrayList<Group>();           //종료 그룹들
 
+    //리스트 뷰
+    ListView reserve_listview;
+    ListView end_listview;
+
+    //행과 실제 칼럼 ArrayList
+    ArrayList<ArrayList<String>> row = new ArrayList<ArrayList<String>>();
+    ArrayList<String> dataArray = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         //파이어 베이스 데이터베이스 연동
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
+
+        reserve_listview = (ListView)findViewById(R.id.listView1);
+        end_listview = (ListView)findViewById(R.id.listView2);
 
         setting();
         create();
@@ -89,6 +104,34 @@ public class MainActivity extends AppCompatActivity {
                 end.sort(new CompareGroup<Group>());
 
                 //예약 어뎁터 작성하기
+
+                for(int i = 0; i < reserve.size(); i++){            //예약 그룹 숫자만큼 반복
+
+                    MainData md2 = new MainData(reserve.get(i).destination,Integer.toString(reserve.get(i).users.size()),
+                            Integer.toString(reserve.get(i).year) + "-" +
+                                    Integer.toString(reserve.get(i).month)+ "-"
+                                    + Integer.toString(reserve.get(i).day),
+                            Integer.toString(reserve.get(i).start_hours) + "시 " +
+                            Integer.toString(reserve.get(i).start_minutes) + "분");
+                    row.add(md2.returnME());
+                    dataArray.clear();
+
+
+
+                }//for문 끝
+
+                ArrayAdapter arrayAdapter= new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, row);
+
+                reserve_listview.setAdapter(arrayAdapter);
+                reserve_listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        Toast.makeText(MainActivity.this,"Clicked Item: "+i+" "+row.get(i).toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
 
 
 
