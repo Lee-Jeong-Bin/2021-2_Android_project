@@ -87,7 +87,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="4"
-        android:background="#ECAD46"/>
+        android:background="#ECAD46" />
 
         <TextView
             android:layout_width="match_parent"
@@ -123,7 +123,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="0dp"
         android:layout_weight="4"
-        android:background="#ECAD46"/>
+        android:background="#ECAD46" />
 </LinearLayout>
 
     <LinearLayout

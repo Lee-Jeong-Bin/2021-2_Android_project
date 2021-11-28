@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 for(int i = 0; i < myinfo.groups.size(); i++){
 
                     Group gp = snapshot.child("Group").child(myinfo.groups.get(i)).getValue(Group.class);
+                    gp.aid = myinfo.groups.get(i);
                     reserve.add(gp);
 
                 }
@@ -107,27 +108,50 @@ public class MainActivity extends AppCompatActivity {
 
                 for(int i = 0; i < reserve.size(); i++){            //예약 그룹 숫자만큼 반복
 
+                    /*
                     MainData md2 = new MainData(reserve.get(i).destination,Integer.toString(reserve.get(i).users.size()),
                             Integer.toString(reserve.get(i).year) + "-" +
                                     Integer.toString(reserve.get(i).month)+ "-"
                                     + Integer.toString(reserve.get(i).day),
                             Integer.toString(reserve.get(i).start_hours) + "시 " +
                             Integer.toString(reserve.get(i).start_minutes) + "분");
-                    row.add(md2.returnME());
-                    dataArray.clear();
+                     */
+
+
+                    String msg =  "*" + reserve.get(i).destination + "*   " + Integer.toString(reserve.get(i).users.size()) + "명   "
+                            + Integer.toString(reserve.get(i).year) + "년" +
+                            Integer.toString(reserve.get(i).month)+ "월"
+                            + Integer.toString(reserve.get(i).day) + "일 "
+                            +Integer.toString(reserve.get(i).start_hours) + "시 " +
+                            Integer.toString(reserve.get(i).start_minutes) + "분";
+
+
+                    dataArray.add(msg);
+
+
+                    //row.add(md2.returnME());
+                    //dataArray.clear();
 
 
 
                 }//for문 끝
 
-                ArrayAdapter arrayAdapter= new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, row);
+                ArrayAdapter arrayAdapter= new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, dataArray);
 
                 reserve_listview.setAdapter(arrayAdapter);
                 reserve_listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        Toast.makeText(MainActivity.this,"Clicked Item: "+i+" "+row.get(i).toString(), Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(MainActivity.this, Reservationgroup.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
+                        intent.putExtra("mynickname", mynickname);      //닉네임도 넘겨준다.
+                        intent.putExtra("GroupKey",reserve.get(i).aid); //그룹 키값을 넘겨준다.
+                        startActivity(intent);
+
                     }
                 });
 
