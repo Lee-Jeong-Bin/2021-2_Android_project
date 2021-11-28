@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Finishmap">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/finish_xbtn"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:background="@drawable/back"
+            >
+        </ImageButton>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/finish_edit_keyword"
+            android:hint="도착지를 검색하세요"
+            android:layout_weight="1" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:id="@+id/finish_btn_search" />
+        <ImageButton
+            android:id="@+id/finish_nextbtn"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:background="@drawable/next"
+            >
+        </ImageButton>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.skt.Tmap.TMapView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/finish_map_view" />
+
+        <ListView
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:id="@+id/finish_listView"
+            android:layout_gravity="left|top" />
+    </FrameLayout>
+
+</LinearLayout>

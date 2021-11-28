@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,9 +67,14 @@ public class PostUI extends AppCompatActivity {
         //인탠트 정보값 받기
         mykey = getIntent().getStringExtra("mykey");
         nickname = getIntent().getStringExtra("mynickname");
-
-
-        /*    인탠트로 아직 출발 도착 위도 경도 총 4개,  출 목 주소, 요금을 못 받음      */
+        //출발지
+        start_name = getIntent().getStringExtra("start");
+        start_x = Double.parseDouble(getIntent().getStringExtra("startX"));
+        start_y = Double.parseDouble(getIntent().getStringExtra("startY"));
+        //도착지
+        finish_name = getIntent().getStringExtra("finish");
+        finish_x = Double.parseDouble(getIntent().getStringExtra("finishX"));
+        finish_y = Double.parseDouble(getIntent().getStringExtra("finishY"));
 
 
         //서버
@@ -84,6 +90,12 @@ public class PostUI extends AppCompatActivity {
             }
         });     //기본으로 나의 정보를 가져온다.
 
+
+        //출발지 목적지 자동 설정하여 주기
+        TextView startT = (TextView)findViewById(R.id.start_address);
+        startT.setText(start_name);
+        TextView finishT = (TextView)findViewById(R.id.finish_address);
+        finishT.setText(finish_name);
 
         //버튼코딩
         ImageButton b = (ImageButton)findViewById(R.id.xbtn);
@@ -138,8 +150,8 @@ public class PostUI extends AppCompatActivity {
 
                     //그룹을 이제 서버에 저장
                     String mx = myRef.child("Group").push().getKey();               //랜덤 키 생성 후 저장
-                    myRef.child("Group").child(mx).setValue(gp);                     //키 값에 데이터 입력 후 서버 저장
-                    if (myinfo.groups == null) {                                            //생성자에 그룹에 넣어준다.
+                    myRef.child("Group").child(mx).setValue(gp);                    //키 값에 데이터 입력 후 서버 저장
+                    if (myinfo.groups == null) {                                    //생성자에 그룹에 넣어준다.
 
                         myinfo.groups = new ArrayList<String>();
                         myinfo.groups.add(mx);

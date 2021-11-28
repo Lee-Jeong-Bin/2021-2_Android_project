@@ -1,5 +1,6 @@
 package com.androidproject.texipool;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,8 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +27,11 @@ public class MainActivity extends AppCompatActivity {
     //나의 고유번호를 저장한다.
     private String mykey;
     private String mynickname;
-    private User myinfo;
+    private UserInfo myinfo;
+
+    //진짜 그룹 저장
+    List<Group> reserve = new ArrayList<Group>();       //예약 그룹들
+    List<Group> end = new ArrayList<Group>();           //종료 그룹들
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +56,57 @@ public class MainActivity extends AppCompatActivity {
     //리스트뷰 및 기본 세팅
     void setting(){         //여기다가 서버에서 가져온 정보로 리스트뷰 작성
 
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                //제일 처음 유저 정보를 가져온다.
+                myinfo = snapshot.child("UserInfo").child(mykey).getValue(UserInfo.class);
+                if(myinfo.groups == null){
+                    myinfo.groups = new ArrayList<String>();
+                }
+                if(myinfo.end_groups == null){          //종료 삑사리 안터지게 함.
+                    myinfo.end_groups = new ArrayList<String>();
+                }
+
+                //예약 그룹부터 가져온다.
+                for(int i = 0; i < myinfo.groups.size(); i++){
+
+                    Group gp = snapshot.child("Group").child(myinfo.groups.get(i)).getValue(Group.class);
+                    reserve.add(gp);
+
+                }
+                //종료 그룹부터 가져온다.
+                for(int j = 0; j < myinfo.end_groups.size(); j++){
+
+                    //end 그룹을 하나 만들기
+                    Group gp = snapshot.child("EndGroup").child(myinfo.end_groups.get(j)).getValue(Group.class);
+                    end.add(gp);
+
+                }
+                //정렬하기
+                reserve.sort(new CompareGroup<Group>());
+                end.sort(new CompareGroup<Group>());
+
+                //예약 어뎁터 작성하기
 
 
 
 
 
+                //종료 어뎁터 작성하기
 
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     //그룹 생성 버튼(끝)
