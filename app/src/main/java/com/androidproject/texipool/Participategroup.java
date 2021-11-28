@@ -55,6 +55,8 @@ public class Participategroup extends AppCompatActivity {
     TextView[] stars = new TextView[4];      //별점 관리
     TextView[] ccper = new TextView[4];      //취소율 관리
     TextView textView;
+    TextView date;
+    TextView time;
 
     int checkme = 0;
 
@@ -104,104 +106,115 @@ public class Participategroup extends AppCompatActivity {
 
         textView = (TextView)findViewById(R.id.introduction);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        date = (TextView)findViewById(R.id.date);
+        time = (TextView)findViewById(R.id.time);
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                //try {
 
                 myinfo = snapshot.child("UserInfo").child(mykey).getValue(UserInfo.class);
                 gp = snapshot.child("Group").child(mygroupkey).getValue(Group.class);           //gp에 저장
 
+                //날짜와 시간저장
+                Time mytime = new Time(gp.year, gp.month, gp.day , gp.start_hours, gp.start_minutes);
+                date.setText(mytime.date());
+                time.setText(mytime.time());
+
                 //소개말
                 textView.setText(gp.text);
 
-                for(int i = 0; i < gp.users.size(); i++){           //키 값 가지고 있으니 클래스로 가져온다.
+                for (int i = 0; i < gp.users.size(); i++) {           //키 값 가지고 있으니 클래스로 가져온다.
 
                     UserInfo uf = snapshot.child("UserInfo").child(gp.users.get(i)).getValue(UserInfo.class);
                     userlist.add(uf);
 
                 }
 
-                for(int i = 0; i < userlist.size() ; i++){      //있는 만큼 세팅하여 준다.
+                for (int i = 0; i < userlist.size(); i++) {      //있는 만큼 세팅하여 준다.
 
-                       //이미지
-                       if(userlist.get(i).img != null){        //이미지 파일이 있는 경우만
+                    //이미지
+                    if (userlist.get(i).img != null) {        //이미지 파일이 있는 경우만
 
-                           Bitmap bmp;
-                           byte[] bytes = UserInfo.binaryStringToByteArray(userlist.get(i).img);
-                           bmp = BitmapFactory.decodeByteArray(bytes, 0 , bytes.length);
-                           img[i].setImageBitmap(bmp);
-                           img[i].setClipToOutline(true);              //모양에 맞게 사진 자르기
+                        Bitmap bmp;
+                        byte[] bytes = UserInfo.binaryStringToByteArray(userlist.get(i).img);
+                        bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        img[i].setImageBitmap(bmp);
+                        img[i].setClipToOutline(true);              //모양에 맞게 사진 자르기
 
-                       }
+                    }
 
-                       //평점
-                       if(userlist.get(i).stars == null || userlist.get(i).stars.size() < 10){
+                    //평점
+                    if (userlist.get(i).stars == null || userlist.get(i).stars.size() < 10) {
 
-                           stars[i].setText("평가 10회 미만");
+                        stars[i].setText("평가 10회 미만");
 
-                       }else{
+                    } else {
 
-                           double estimate;
-                           double sum = 0;
+                        double estimate;
+                        double sum = 0;
 
-                           for(int j = 0; j < userlist.get(i).stars.size(); j++){
+                        for (int j = 0; j < userlist.get(i).stars.size(); j++) {
 
-                               sum = sum + userlist.get(i).stars.get(j);
+                            sum = sum + userlist.get(i).stars.get(j);
 
-                           }
-                           estimate = sum / (double)userlist.get(i).stars.size();
-                           stars[i].setText(Float.toString((float)(Math.round(estimate*100)/100.0)) + "점");
+                        }
+                        estimate = sum / (double) userlist.get(i).stars.size();
+                        stars[i].setText(Float.toString((float) (Math.round(estimate * 100) / 100.0)) + "점");
 
-                       }
-                       //취소율
-                       if(userlist.get(i).end_groups == null || userlist.get(i).end_groups.size() + userlist.get(i).fail_count < 10){
+                    }
+                    //취소율
+                    if (userlist.get(i).end_groups == null || userlist.get(i).end_groups.size() + userlist.get(i).fail_count < 10) {
 
-                           ccper[i].setText("탑승 10회 미만");
+                        ccper[i].setText("탑승 10회 미만");
 
-                       }else{
+                    } else {
 
-                           ccper[i].setText(String.format("%.2lf", (double)userlist.get(i).fail_count / ((double)userlist.get(i).end_groups.size()
-                                   + (double)userlist.get(i).fail_count)) + "%" );
-                       }
+                        ccper[i].setText(String.format("%.2lf", (double) userlist.get(i).fail_count / ((double) userlist.get(i).end_groups.size()
+                                + (double) userlist.get(i).fail_count)) + "%");
+                    }
 
-                   }
+                }
 
-                   for(int i = userlist.size(); i < 4; i++){       //없는 것은 안보이게 하기
+                for (int i = userlist.size(); i < 4; i++) {       //없는 것은 안보이게 하기
 
-                       img[i].setVisibility(View.INVISIBLE);
-                       stars[i].setVisibility(View.INVISIBLE);
-                       ccper[i].setVisibility(View.INVISIBLE);
+                    img[i].setVisibility(View.INVISIBLE);
+                    stars[i].setVisibility(View.INVISIBLE);
+                    ccper[i].setVisibility(View.INVISIBLE);
 
-                   }
+                }
 
-                   //지도 세팅
+                //지도 세팅
                 mapView = (TMapView) findViewById(R.id.map_par);
-                   mapView.setSKTMapApiKey("l7xx303267b599d441eb85003eeddd7b4d4c");
-                   mapView.setLanguage(TMapView.LANGUAGE_KOREAN);
-                   final TMapPoint[] starttMapPoint = {new TMapPoint(y, x)};
-                   final TMapPoint[] finishtMapPoint = {new TMapPoint(y, x)};
+                mapView.setSKTMapApiKey("l7xx303267b599d441eb85003eeddd7b4d4c");
+                mapView.setLanguage(TMapView.LANGUAGE_KOREAN);
+                final TMapPoint[] starttMapPoint = {new TMapPoint(y, x)};
+                final TMapPoint[] finishtMapPoint = {new TMapPoint(y, x)};
 
-                   String start = gp.start_address;
-                   double startX = gp.start_x;
-                   double startY = gp.start_y;
+                String start = gp.start_address;
+                double startX = gp.start_x;
+                double startY = gp.start_y;
 
-                   String finish = gp.destination;
-                   double finishX = gp.finish_x;
-                   double finishY = gp.finish_y;
+                String finish = gp.destination;
+                double finishX = gp.finish_x;
+                double finishY = gp.finish_y;
 
-                   mapView.setCenterPoint((startY+finishY)/2, (startX+finishX)/2);
-                   mapView.setMapType(TMapView.MAPTYPE_STANDARD);
-                   starttMapPoint[0] = new TMapPoint(startX, startY);
-                   finishtMapPoint[0] = new TMapPoint(finishX, finishY);
-                   searchRoute(starttMapPoint[0], finishtMapPoint[0]);
+                mapView.setCenterPoint((startY + finishY) / 2, (startX + finishX) / 2);
+                mapView.setMapType(TMapView.MAPTYPE_STANDARD);
+                starttMapPoint[0] = new TMapPoint(startX, startY);
+                finishtMapPoint[0] = new TMapPoint(finishX, finishY);
+                searchRoute(starttMapPoint[0], finishtMapPoint[0]);
 
-                   point.add(starttMapPoint[0]);
-                   point.add(finishtMapPoint[0]);
+                point.add(starttMapPoint[0]);
+                point.add(finishtMapPoint[0]);
 
+                //}catch (Exception e){}
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 

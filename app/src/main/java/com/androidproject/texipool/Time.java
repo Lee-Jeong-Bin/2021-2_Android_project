@@ -101,4 +101,59 @@ public class Time {                 //현재 시간을 구하여 주는 클래�
 
     }
 
+    String date(){
+
+        String ret = "";
+
+        //년월일 저장
+        ret = Integer.toString(this.year);      //년 저장
+        ret = ret + "년";
+        int month = this.month;            //월 저장
+        if (month < 10){
+            ret = ret + '0' + Integer.toString(month);
+        }else{
+            ret = ret + Integer.toString(month);
+        }
+        ret = ret + "월";
+
+        int day = this.day;
+        if (day < 10){
+            ret = ret + '0' + Integer.toString(day);
+        }else{
+            ret = ret + Integer.toString(day);
+        }
+        ret = ret + "일";
+
+        return ret;
+    }
+
+    String time(){
+
+        String ret = "";
+
+        //시분 저장장
+        int hour = this.hour;
+        if (hour < 10){
+            ret = ret + '0' + Integer.toString(hour);
+        }else{
+            ret = ret + Integer.toString(hour);
+        }
+
+        ret = ret + "시";
+
+        int minute = this.minute;
+        if (minute < 10){
+            ret = ret + '0' + Integer.toString(minute);
+        }else{
+            ret = ret + Integer.toString(minute);
+        }
+
+        ret = ret + "분";
+
+        return ret;
+
+    }
+
+
+
 }

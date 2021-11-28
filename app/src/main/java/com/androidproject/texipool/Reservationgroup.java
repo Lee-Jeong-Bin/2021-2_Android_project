@@ -50,6 +50,8 @@ public class Reservationgroup extends AppCompatActivity {
     ImageView[] img = new ImageView[4];      //이미지 관리
     TextView[] stars = new TextView[4];      //별점 관리
     TextView[] ccper = new TextView[4];      //취소율 관리
+    TextView date;
+    TextView time;
 
 
 
@@ -108,6 +110,9 @@ public class Reservationgroup extends AppCompatActivity {
         ccper[2] = (TextView)findViewById(R.id.cancle_percentage3);
         ccper[3] = (TextView)findViewById(R.id.cancle_percentage4);
 
+        date = (TextView)findViewById(R.id.rdate);
+        time = (TextView)findViewById(R.id.rtime);
+
 
        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
@@ -115,6 +120,13 @@ public class Reservationgroup extends AppCompatActivity {
 
                userInfo = snapshot.child("UserInfo").child(mykey).getValue(UserInfo.class);    //자기 자신 저장
                gp = snapshot.child("Group").child(mygroupkey).getValue(Group.class);           //gp에 저장
+
+
+               //날짜와 시간저장
+               Time mytime = new Time(gp.year, gp.month, gp.day , gp.start_hours, gp.start_minutes);
+               date.setText(mytime.date());
+               time.setText(mytime.time());
+
 
                if (gp.users == null){
 
@@ -405,22 +417,28 @@ public class Reservationgroup extends AppCompatActivity {
                             userlist.get(i).end_groups.add(mygroupkey);        //그룹 키를 넣는다.
 
                             //원래 가지고 있던 그룹 키는 삭제
-                            for(int j = 0; j < userlist.get(j).groups.size(); j++){
+                            for(int j = 0; j < userlist.get(i).groups.size(); j++){         //이게 왜 1번 돌지?
 
-                                System.out.println("삭제" + userlist.get(i).groups.get(j));
                                 if(userlist.get(i).groups.get(j).equals(mygroupkey)){       //키가 같은 경우
 
                                     userlist.get(i).groups.remove(j);     //삭제
 
                                 }
                             }
+
                             myRef.child("UserInfo").child(gp.users.get(i)).setValue(userlist.get(i));    //그룹 키 변동
+
                         }
 
                         //그룹에서 삭제
                         myRef.child("Group").child(mygroupkey).setValue(null);      //그룹에서 삭제
-
-
+                        //성공
+                        Intent it = new Intent(Reservationgroup.this, MainActivity.class);
+                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        it.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
+                        it.putExtra("mynickname", nickname);        //자신의 닉네임을 넘긴다.
+                        startActivity(it);
 
                     }else{      //혼자 도착한 경우
 

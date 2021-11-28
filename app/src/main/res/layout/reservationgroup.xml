@@ -346,7 +346,7 @@
                     android:layout_height="10dp">
                 </TextView>
                 <TextView
-                    android:id="@+id/date"
+                    android:id="@+id/rdate"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
@@ -364,13 +364,13 @@
                     android:layout_height="5dp"></TextView>
 
                 <TextView
-                    android:id="@+id/time"
+                    android:id="@+id/rtime"
                     android:layout_width="match_parent"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:fontFamily="@font/title"
-                    android:text="TT시 MM분"
+                    android:text="rTT시 MM분"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="20dp"
