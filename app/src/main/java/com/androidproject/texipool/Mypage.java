@@ -82,6 +82,7 @@ public class Mypage extends AppCompatActivity {
         //프로필 사진 관련
         imageButton();
         cancle();
+        estimate();
 
     }
 
@@ -317,6 +318,24 @@ public class Mypage extends AppCompatActivity {
 
 
 
+    }
+
+    void estimate(){
+
+        ImageButton estimate_button = (ImageButton)findViewById(R.id.estimate);
+        estimate_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent escapeIntent = new Intent(Mypage.this, EstList.class);
+                escapeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                escapeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                escapeIntent.putExtra("mykey", aid);
+                escapeIntent.putExtra("mynickname", mynickname);
+                startActivity(escapeIntent);
+
+            }
+        });
     }
 
 

@@ -12,33 +12,28 @@
         android:layout_height="0dp"
         android:layout_weight="2.8"
         android:orientation="vertical"
-        android:weightSum="10">
+        android:weightSum="9">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="9"
             android:textSize="25dp"
             android:textStyle="bold"
             android:fontFamily="@font/title"
             android:textAlignment="center"
-            android:padding="15dp"
             android:text="목적지에 도착하였습니다.\n 편안동행이 되셨나요 ?\n \n 같이 온 동승자에게 별점을 부여해주세요!">
 
         </TextView>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_weight="1"
-            android:background="@color/black"/>
+
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="5.4"
         android:weightSum="5"
         android:orientation="vertical"
         >
@@ -58,34 +53,42 @@
                 android:orientation="vertical"
                 android:paddingLeft="20dp">
                 <ImageView
+                    android:id="@+id/iv1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:background="@drawable/imageshape"
-                    android:layout_weight="2">
+                    android:paddingRight="10dp"
+                    android:layout_weight="3.1"
+                    android:scaleType="centerCrop">
 
                 </ImageView>
                 <TextView
+                    android:id="@+id/nick1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
                     android:textAlignment="center"
                     android:text="아이디"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
                     android:fontFamily="@font/title">
 
                 </TextView>
 
             </LinearLayout>
             <RatingBar
+                android:id="@+id/star1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.6"
+                android:layout_weight="3.5"
                 android:layout_gravity="center"
                 android:numStars="5"
-                android:rating="5"
+                android:rating="3"
                 android:isIndicator="false"
                 android:progressTint="#F4AC19"
-                android:progressBackgroundTint="#F4AC19"
-                android:secondaryProgressTint="#F4AC19">
+                android:progressBackgroundTint="@color/white"
+                android:secondaryProgressTint="#F4AC19"
+                android:stepSize="0.5">
             </RatingBar>
 
         </LinearLayout>
@@ -104,34 +107,42 @@
                 android:orientation="vertical"
                 android:paddingLeft="20dp">
                 <ImageView
+                    android:id="@+id/iv2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:background="@drawable/imageshape"
-                    android:layout_weight="2">
+                    android:paddingRight="10dp"
+                    android:layout_weight="3.1"
+                    android:scaleType="centerCrop">
 
                 </ImageView>
                 <TextView
+                    android:id="@+id/nick2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:textAlignment="center"
                     android:text="아이디"
-                    android:fontFamily="@font/title"
-                    android:textAlignment="center">
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:fontFamily="@font/title">
 
                 </TextView>
 
             </LinearLayout>
             <RatingBar
+                android:id="@+id/star2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.6"
+                android:layout_weight="3.5"
                 android:layout_gravity="center"
                 android:numStars="5"
-                android:rating="5"
+                android:rating="3"
                 android:isIndicator="false"
                 android:progressTint="#F4AC19"
-                android:progressBackgroundTint="#F4AC19"
-                android:secondaryProgressTint="#F4AC19">
+                android:progressBackgroundTint="@color/white"
+                android:secondaryProgressTint="#F4AC19"
+                android:stepSize="0.5">
             </RatingBar>
 
         </LinearLayout>
@@ -150,34 +161,42 @@
                 android:orientation="vertical"
                 android:paddingLeft="20dp">
                 <ImageView
+                    android:id="@+id/iv3"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:background="@drawable/imageshape"
-                    android:layout_weight="2">
+                    android:paddingRight="10dp"
+                    android:layout_weight="3.1"
+                    android:scaleType="centerCrop">
 
                 </ImageView>
                 <TextView
+                    android:id="@+id/nick3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.5"
+                    android:textAlignment="center"
                     android:text="아이디"
-                    android:fontFamily="@font/title"
-                    android:textAlignment="center">
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:fontFamily="@font/title">
 
                 </TextView>
 
             </LinearLayout>
             <RatingBar
+                android:id="@+id/star3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3.6"
+                android:layout_weight="3.5"
                 android:layout_gravity="center"
                 android:numStars="5"
-                android:rating="5"
+                android:rating="3"
                 android:isIndicator="false"
                 android:progressTint="#F4AC19"
-                android:progressBackgroundTint="#F4AC19"
-                android:secondaryProgressTint="#F4AC19">
+                android:progressBackgroundTint="@color/white"
+                android:secondaryProgressTint="#F4AC19"
+                android:stepSize="0.5">
             </RatingBar>
 
         </LinearLayout>
@@ -191,40 +210,42 @@
         android:layout_height="0dp"
         android:layout_weight="2.2"
         android:orientation="vertical"
-        android:weightSum="4">
+        android:weightSum="3.5">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0">
+            android:layout_height="0dp"
+            android:layout_weight="0.2">
 
         </TextView>
 
         <Button
+            android:id="@+id/five_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:text="모두에게 5점 부여하기                    >"
             android:textSize="20dp"
             android:textStyle="bold"
             android:fontFamily="@font/title"
             android:gravity="center|left"
             android:textColor="@color/white"
-            android:background="@drawable/titleshape"
-            >
+            android:background="@drawable/titleshape">
 
         </Button>
 
         <TextView
+            android:id="@+id/save_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0">
+            android:layout_height="0dp"
+            android:layout_weight="0.2">
 
         </TextView>
 
         <Button
+            android:id="@+id/est_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:text=" 별점 저장하기                               >"
             android:textSize="20dp"
             android:textStyle="bold"

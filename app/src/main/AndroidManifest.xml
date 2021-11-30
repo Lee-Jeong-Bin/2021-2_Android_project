@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Texipool">
         <activity
+            android:name=".Rating"
+            android:exported="false" />
+        <activity
+            android:name=".EstList"
+            android:exported="false" />
+        <activity
             android:name=".Reservationgroup"
             android:exported="false" />
         <activity
