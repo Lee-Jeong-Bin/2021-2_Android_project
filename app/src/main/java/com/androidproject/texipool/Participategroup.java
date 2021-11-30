@@ -148,7 +148,7 @@ public class Participategroup extends AppCompatActivity {
                     //평점
                     if (userlist.get(i).stars == null || userlist.get(i).stars.size() < 10) {
 
-                        stars[i].setText("평가 10회 미만");
+                        stars[i].setText("*평가 10회 미만");
 
                     } else {
 
@@ -167,7 +167,7 @@ public class Participategroup extends AppCompatActivity {
                     //취소율
                     if (userlist.get(i).end_groups == null || userlist.get(i).end_groups.size() + userlist.get(i).fail_count < 10) {
 
-                        ccper[i].setText("탑승 10회 미만");
+                        ccper[i].setText("*탑승 10회 미만");
 
                     } else {
 

@@ -119,7 +119,15 @@ public class Reservationgroup extends AppCompatActivity {
            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                userInfo = snapshot.child("UserInfo").child(mykey).getValue(UserInfo.class);    //자기 자신 저장
-               gp = snapshot.child("Group").child(mygroupkey).getValue(Group.class);           //gp에 저장
+               if(end == 0){
+
+                   gp = snapshot.child("Group").child(mygroupkey).getValue(Group.class);           //gp에 저장
+
+               }else{
+
+                   gp = snapshot.child("EndGroup").child(mygroupkey).getValue(Group.class);           //gp에 저장
+
+               }
 
 
                //날짜와 시간저장
@@ -168,7 +176,7 @@ public class Reservationgroup extends AppCompatActivity {
                    //평점
                    if(userlist.get(i).stars == null || userlist.get(i).stars.size() < 10){
 
-                       stars[i].setText("평가 10회 미만");
+                       stars[i].setText("*평가 10회 미만");
 
                    }else{
 
@@ -187,7 +195,7 @@ public class Reservationgroup extends AppCompatActivity {
                    //취소율
                    if(userlist.get(i).end_groups == null || userlist.get(i).end_groups.size() + userlist.get(i).fail_count < 10){
 
-                       ccper[i].setText("탑승 10회 미만");
+                       ccper[i].setText("*탑승 10회 미만");
 
                    }else{
 
@@ -292,13 +300,30 @@ public class Reservationgroup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent chatIntent = new Intent(Reservationgroup.this,Chat.class);
-                chatIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                chatIntent.putExtra("mykey",mykey);                           //자신의 키를 넘긴다.
-                chatIntent.putExtra("mygroup",mygroupkey);        //그룹의 키를 넘긴다.
-                chatIntent.putExtra("mynickname", nickname);              //자신의 닉네임을 넘긴다.
-                chatIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(chatIntent);
+                if(end == 0) {
+
+                    Intent chatIntent = new Intent(Reservationgroup.this, Chat.class);
+                    chatIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    chatIntent.putExtra("mykey", mykey);                        //자신의 키를 넘긴다.
+                    chatIntent.putExtra("mygroup", mygroupkey);                 //그룹의 키를 넘긴다.
+                    chatIntent.putExtra("mynickname", nickname);               //자신의 닉네임을 넘긴다.
+                    chatIntent.putExtra("end", "0");
+                    chatIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(chatIntent);
+
+                }else{
+
+                    Intent chatIntent = new Intent(Reservationgroup.this, Chat.class);
+                    chatIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    chatIntent.putExtra("mykey", mykey);                        //자신의 키를 넘긴다.
+                    chatIntent.putExtra("mygroup", mygroupkey);                 //그룹의 키를 넘긴다.
+                    chatIntent.putExtra("mynickname", nickname);               //자신의 닉네임을 넘긴다.
+                    chatIntent.putExtra("end", "1");
+                    chatIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(chatIntent);
+
+
+                }
 
             }
         });

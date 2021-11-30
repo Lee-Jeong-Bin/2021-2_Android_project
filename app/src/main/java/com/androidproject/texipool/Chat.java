@@ -49,6 +49,7 @@ public class Chat extends AppCompatActivity {
 
     //어뎁터
     ChatAdapter adapter = null;
+    int end = 0;
 
 
     @Override
@@ -64,6 +65,7 @@ public class Chat extends AppCompatActivity {
         group_key = getIntent().getStringExtra("mygroup");
         my_key = getIntent().getStringExtra("mykey");
         mynickname = getIntent().getStringExtra("mynickname");
+        end = Integer.parseInt(getIntent().getStringExtra("end"));
 
         setting();
         insertButton();
@@ -77,7 +79,15 @@ public class Chat extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 //먼저 그룹 클래스를 가져온다.
-                gp = snapshot.child("Group").child(group_key).getValue(Group.class);
+                if(end == 0 || end == 3){
+
+                    gp = snapshot.child("Group").child(group_key).getValue(Group.class);           //gp에 저장
+
+                }else{
+
+                    gp = snapshot.child("EndGroup").child(group_key).getValue(Group.class);           //gp에 저장
+
+                }
                 userInfo = snapshot.child("UserInfo").child(my_key).getValue(UserInfo.class);
 
                 //가져온 그룹 클래스로 이제 나타낸다.(리사이클 뷰)
@@ -139,12 +149,41 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent escapeIntent = new Intent(Chat.this, Mypage.class);
-                escapeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                escapeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                escapeIntent.putExtra("mykey", my_key);
-                escapeIntent.putExtra("mynickname", mynickname);
-                startActivity(escapeIntent);
+                if(end == 0) {
+
+                    Intent escapeIntent = new Intent(Chat.this, MainActivity.class);
+                    escapeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    escapeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    escapeIntent.putExtra("mykey", my_key);
+                    escapeIntent.putExtra("mynickname", mynickname);
+                    startActivity(escapeIntent);
+
+                }else if(end == 1){
+
+                    Intent escapeIntent = new Intent(Chat.this, MainActivity.class);
+                    escapeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    escapeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    escapeIntent.putExtra("mykey", my_key);
+                    escapeIntent.putExtra("mynickname", mynickname);
+                    startActivity(escapeIntent);
+
+
+
+                }else{
+
+                    Intent escapeIntent = new Intent(Chat.this, Mypage.class);
+                    escapeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    escapeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    escapeIntent.putExtra("mykey", my_key);
+                    escapeIntent.putExtra("mynickname", mynickname);
+                    startActivity(escapeIntent);
+
+
+
+
+
+                }
+
 
             }
         });

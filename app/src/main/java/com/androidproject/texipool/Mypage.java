@@ -262,7 +262,7 @@ public class Mypage extends AppCompatActivity {
         lv.setLayoutManager(linearLayoutManager);
         lv.addItemDecoration(new DividerItemDecoration(this, 1));
 
-        adapter = new ChatRoomRecycleAdapter();
+        adapter = new ChatRoomRecycleAdapter(0);
         adapter.setOnItemClickListener(new ChatRoomRecycleAdapter.OnItemClickListener()
         {
             @Override
@@ -277,6 +277,7 @@ public class Mypage extends AppCompatActivity {
                 chatIntent.putExtra("mykey",aid);                           //자신의 키를 넘긴다.
                 chatIntent.putExtra("mygroup",groups_name.get(pos));        //그룹의 키를 넘긴다.
                 chatIntent.putExtra("mynickname", mynickname);              //자신의 닉네임을 넘긴다.
+                chatIntent.putExtra("end","3");
                 chatIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(chatIntent);
 

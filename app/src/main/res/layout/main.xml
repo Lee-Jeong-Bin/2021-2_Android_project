@@ -110,9 +110,8 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.2"></TextView>
 
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listView1"
-                android:text="참가한 그룹"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
@@ -143,12 +142,11 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.2"></TextView>
 
-            <ListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listView2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="0dp"
                 android:layout_weight="3.5"
                 android:background="#ECAD46" />
 

@@ -2,6 +2,9 @@ package com.androidproject.texipool;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -53,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView iv;
 
+    private RecyclerView lv;
+    public ChatRoomRecycleAdapter adapter;
+
+    private RecyclerView lv2;
+    public ChatRoomRecycleAdapter adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        reserve_listview = (ListView)findViewById(R.id.listView1);
-        end_listview = (ListView)findViewById(R.id.listView2);
+        lv = (RecyclerView)findViewById(R.id.listView1);
+        lv2 = (RecyclerView) findViewById(R.id.listView2);
         iv = (ImageView) findViewById(R.id.userButton);
 
         mainActivity = MainActivity.this;
@@ -137,43 +145,10 @@ public class MainActivity extends AppCompatActivity {
                     reserve.sort(new CompareGroup<Group>());
                     end.sort(new CompareGroup<Group>());
 
-                    //예약 어뎁터 작성하기
-
-                    for (int i = 0; i < reserve.size(); i++) {            //예약 그룹 숫자만큼 반복
-
-
-                        String msg = "*" + reserve.get(i).destination + "*   " + Integer.toString(reserve.get(i).users.size()) + "명   "
-                                + Integer.toString(reserve.get(i).year) + "년" +
-                                Integer.toString(reserve.get(i).month) + "월"
-                                + Integer.toString(reserve.get(i).day) + "일 "
-                                + Integer.toString(reserve.get(i).start_hours) + "시 " +
-                                Integer.toString(reserve.get(i).start_minutes) + "분";
+                    init();
+                    init2();
 
 
-                        dataArray.add(msg);
-
-
-                    }//for문 끝
-
-                    ArrayAdapter arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, dataArray);
-
-                    reserve_listview.setAdapter(arrayAdapter);
-                    reserve_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                            Intent intent = new Intent(MainActivity.this, Reservationgroup.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
-                            intent.putExtra("mynickname", mynickname);      //닉네임도 넘겨준다.
-                            intent.putExtra("GroupKey", reserve.get(i).aid); //그룹 키값을 넘겨준다.
-                            intent.putExtra("end", Integer.toString(0));
-                            startActivity(intent);
-
-                        }
-                    });
 
 
                     //종료 어뎁터 작성하기
@@ -258,7 +233,97 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private void init() {
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        lv.setLayoutManager(linearLayoutManager);
+        lv.addItemDecoration(new DividerItemDecoration(this, 1));
+
+        reserve.sort(new CompareGroup<Group>());
+        ArrayList<String> groups_name = new ArrayList<String>();
+        for(int i = 0; i < reserve.size(); i++){
+
+            groups_name.add(reserve.get(i).aid);
+
+        }
+
+        adapter = new ChatRoomRecycleAdapter(1);
+        adapter.setOnItemClickListener(new ChatRoomRecycleAdapter.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(View v, int pos)
+            {
+                // 실행 내용
+                System.out.println(groups_name.get(pos));
+
+                //이제 여기다가 채팅방 이동을 넣으면 된다.
+                Intent chatIntent = new Intent(MainActivity.this, Reservationgroup.class);
+                chatIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                chatIntent.putExtra("mykey",mykey);                       //자신의 키를 넘긴다.
+                chatIntent.putExtra("GroupKey",groups_name.get(pos));      //그룹의 키를 넘긴다.
+                chatIntent.putExtra("mynickname", mynickname);              //자신의 닉네임을 넘긴다.
+                chatIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                chatIntent.putExtra("end", Integer.toString(0));
+                startActivity(chatIntent);
+
+            }
+        });
+
+        for (int i = 0; i < reserve.size(); i++) {      //이거 돌려야 들어간다.
+
+            adapter.addItem(reserve.get(i));          //이거 해줘야 순서대로 다 들어간다.
+
+        }
+        lv.setAdapter(adapter);
+
+
+    }
+
+    private void init2() {
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        lv2.setLayoutManager(linearLayoutManager);
+        lv2.addItemDecoration(new DividerItemDecoration(this, 1));
+
+        end.sort(new CompareGroup<Group>());
+        ArrayList<String> groups_name2 = new ArrayList<String>();
+        for(int i = 0; i < end.size(); i++){
+
+            groups_name2.add(end.get(i).aid);
+
+        }
+
+        adapter2 = new ChatRoomRecycleAdapter(1);
+        adapter2.setOnItemClickListener(new ChatRoomRecycleAdapter.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(View v, int pos)
+            {
+                // 실행 내용
+                System.out.println(groups_name2.get(pos));
+
+                //이제 여기다가 채팅방 이동을 넣으면 된다.
+                Intent chatIntent = new Intent(MainActivity.this, Reservationgroup.class);
+                chatIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                chatIntent.putExtra("mykey",mykey);                       //자신의 키를 넘긴다.
+                chatIntent.putExtra("GroupKey",groups_name2.get(pos));      //그룹의 키를 넘긴다.
+                chatIntent.putExtra("mynickname", mynickname);              //자신의 닉네임을 넘긴다.
+                chatIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                chatIntent.putExtra("end", Integer.toString(1));
+                startActivity(chatIntent);
+
+            }
+        });
+
+        for (int i = 0; i < end.size(); i++) {      //이거 돌려야 들어간다.
+
+            adapter2.addItem(end.get(i));          //이거 해줘야 순서대로 다 들어간다.
+
+        }
+        lv2.setAdapter(adapter2);
+
+
+    }
 
 
 

@@ -250,7 +250,7 @@ public class ListUI extends AppCompatActivity {
 
         }
 
-        adapter = new ChatRoomRecycleAdapter();
+        adapter = new ChatRoomRecycleAdapter(0);
         adapter.setOnItemClickListener(new ChatRoomRecycleAdapter.OnItemClickListener()
         {
             @Override
