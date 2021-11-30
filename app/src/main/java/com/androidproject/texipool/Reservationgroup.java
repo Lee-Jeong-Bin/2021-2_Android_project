@@ -413,88 +413,89 @@ public class Reservationgroup extends AppCompatActivity {
             arrive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(gp.users.get(0).equals(mykey)) {
+                        if (gp.users.size() >= 2) {       //userlist 사용
 
-                    if(gp.users.size() >= 2){       //userlist 사용
+                            //여기가 평가 발생
+                            myRef.child("EndGroup").child(mygroupkey).setValue(gp);     //종료 그룹에 저장
+                            //평가
+                            Alarm alarm = new Alarm();
+                            alarm.groupkeys = new ArrayList<String>();
+                            alarm.groupkeys.add(mygroupkey);
 
-                        //여기가 평가 발생
-                        myRef.child("EndGroup").child(mygroupkey).setValue(gp);     //종료 그룹에 저장
-                        //평가
-                        Alarm alarm = new Alarm();
-                        alarm.groupkeys = new ArrayList<String>();
-                        alarm.groupkeys.add(mygroupkey);
+                            for (int i = 0; i < gp.users.size(); i++) {
 
-                        for(int i = 0; i < gp.users.size(); i++){
+                                myRef.child("Alarm").child(gp.users.get(i)).setValue(alarm);
 
-                            myRef.child("Alarm").child(gp.users.get(i)).setValue(alarm);
-
-                        }
-
-                        //유저 정보들 삭제
-                        for(int i = 0; i < userlist.size(); i++){
-
-                            if(userlist.get(i).end_groups == null){        //비어이 있는 경우 만들어줌
-                                userlist.get(i).end_groups = new ArrayList<String>();
                             }
 
-                            userlist.get(i).end_groups.add(mygroupkey);        //그룹 키를 넣는다.
+                            //유저 정보들 삭제
+                            for (int i = 0; i < userlist.size(); i++) {
 
+                                if (userlist.get(i).end_groups == null) {        //비어이 있는 경우 만들어줌
+                                    userlist.get(i).end_groups = new ArrayList<String>();
+                                }
+
+                                userlist.get(i).end_groups.add(mygroupkey);        //그룹 키를 넣는다.
+
+                                //원래 가지고 있던 그룹 키는 삭제
+                                for (int j = 0; j < userlist.get(i).groups.size(); j++) {         //이게 왜 1번 돌지?
+
+                                    if (userlist.get(i).groups.get(j).equals(mygroupkey)) {       //키가 같은 경우
+
+                                        userlist.get(i).groups.remove(j);     //삭제
+
+                                    }
+                                }
+
+                                myRef.child("UserInfo").child(gp.users.get(i)).setValue(userlist.get(i));    //그룹 키 변동
+
+                            }
+
+                            //그룹에서 삭제
+                            myRef.child("Group").child(mygroupkey).setValue(null);      //그룹에서 삭제
+                            //성공
+                            Intent it = new Intent(Reservationgroup.this, MainActivity.class);
+                            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            it.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
+                            it.putExtra("mynickname", nickname);        //자신의 닉네임을 넘긴다.
+                            startActivity(it);
+
+                        } else {      //혼자 도착한 경우
+
+                            if (userInfo.end_groups == null) {        //비어이 있는 경우 만들어줌
+
+                                userInfo.end_groups = new ArrayList<String>();
+
+                            }
+
+                            userInfo.end_groups.add(mygroupkey);        //그룹 키를 넣는다.
                             //원래 가지고 있던 그룹 키는 삭제
-                            for(int j = 0; j < userlist.get(i).groups.size(); j++){         //이게 왜 1번 돌지?
+                            for (int i = 0; i < userInfo.groups.size(); i++) {
 
-                                if(userlist.get(i).groups.get(j).equals(mygroupkey)){       //키가 같은 경우
+                                if (userInfo.groups.get(i).equals(mygroupkey)) {       //키가 같은 경우
 
-                                    userlist.get(i).groups.remove(j);     //삭제
+                                    userInfo.groups.remove(i);     //삭제
 
                                 }
                             }
 
-                            myRef.child("UserInfo").child(gp.users.get(i)).setValue(userlist.get(i));    //그룹 키 변동
+                            //이거 순서 바뀌면 버그 터진다.(유저 정보보다 endgroup부터 해야한다.)
+                            myRef.child("EndGroup").child(mygroupkey).setValue(gp);     //종료 그룹에 저장
+                            myRef.child("UserInfo").child(mykey).setValue(userInfo);    //그룹 키 변동
+                            myRef.child("Group").child(mygroupkey).setValue(null);      //그룹에서 삭제
+
+                            Intent it = new Intent(Reservationgroup.this, MainActivity.class);
+                            it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            it.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
+                            it.putExtra("mynickname", nickname);        //자신의 닉네임을 넘긴다.
+                            startActivity(it);
 
                         }
-
-                        //그룹에서 삭제
-                        myRef.child("Group").child(mygroupkey).setValue(null);      //그룹에서 삭제
-                        //성공
-                        Intent it = new Intent(Reservationgroup.this, MainActivity.class);
-                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        it.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
-                        it.putExtra("mynickname", nickname);        //자신의 닉네임을 넘긴다.
-                        startActivity(it);
-
-                    }else{      //혼자 도착한 경우
-
-                        if(userInfo.end_groups == null){        //비어이 있는 경우 만들어줌
-
-                            userInfo.end_groups = new ArrayList<String>();
-
-                        }
-
-                        userInfo.end_groups.add(mygroupkey);        //그룹 키를 넣는다.
-                        //원래 가지고 있던 그룹 키는 삭제
-                        for(int i = 0; i < userInfo.groups.size(); i++){
-
-                            if(userInfo.groups.get(i).equals(mygroupkey)){       //키가 같은 경우
-
-                                userInfo.groups.remove(i);     //삭제
-
-                            }
-                        }
-
-                        //이거 순서 바뀌면 버그 터진다.(유저 정보보다 endgroup부터 해야한다.)
-                        myRef.child("EndGroup").child(mygroupkey).setValue(gp);     //종료 그룹에 저장
-                        myRef.child("UserInfo").child(mykey).setValue(userInfo);    //그룹 키 변동
-                        myRef.child("Group").child(mygroupkey).setValue(null);      //그룹에서 삭제
-
-                        Intent it = new Intent(Reservationgroup.this, MainActivity.class);
-                        it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        it.putExtra("mykey", mykey);                //자신의 고유번호를 넘겨준다.
-                        it.putExtra("mynickname", nickname);        //자신의 닉네임을 넘긴다.
-                        startActivity(it);
 
                     }
-
                 }
             });
         }
