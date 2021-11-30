@@ -395,12 +395,9 @@ public class Reservationgroup extends AppCompatActivity {
                         myRef.child("EndGroup").child(mygroupkey).setValue(gp);     //종료 그룹에 저장
                         //평가
                         Alarm alarm = new Alarm();
-                        alarm.users = new ArrayList<String>();
-                        for(int i = 0; i < gp.users.size(); i++){
+                        alarm.groupkeys = new ArrayList<String>();
+                        alarm.groupkeys.add(mygroupkey);
 
-                            alarm.users.add(gp.users.get(i));
-
-                        }
                         for(int i = 0; i < gp.users.size(); i++){
 
                             myRef.child("Alarm").child(gp.users.get(i)).setValue(alarm);

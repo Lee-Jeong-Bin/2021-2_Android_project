@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +38,7 @@ public class ListUI extends AppCompatActivity {
     private DatabaseReference myRef;
 
     private ArrayList<Group> searchlist = new ArrayList<Group>();
-    private Button lookupButton;
+    private TextView lookupButton;
 
     //리스트
     private RecyclerView lv;
@@ -129,7 +130,7 @@ public class ListUI extends AppCompatActivity {
     void lookup(){   //조회 버튼 누르면 발생시
         dis = distance.getSelectedItem().toString();
 
-        lookupButton = findViewById(R.id.look); //조회 버튼
+        lookupButton = (TextView)findViewById(R.id.look); //조회 버튼
         lookupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

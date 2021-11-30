@@ -4,13 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,10 +51,13 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<ArrayList<String>> row = new ArrayList<ArrayList<String>>();
     ArrayList<String> dataArray = new ArrayList<String>();
 
+    ImageView iv;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main);
 
         mykey = getIntent().getStringExtra("mykey");
         mynickname = getIntent().getStringExtra("mynickname");
@@ -61,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         reserve_listview = (ListView)findViewById(R.id.listView1);
         end_listview = (ListView)findViewById(R.id.listView2);
+        iv = (ImageView) findViewById(R.id.userButton);
 
         mainActivity = MainActivity.this;
 
@@ -90,6 +98,18 @@ public class MainActivity extends AppCompatActivity {
                     if (myinfo.end_groups == null) {          //종료 삑사리 안터지게 함.
                         myinfo.end_groups = new ArrayList<String>();
                     }
+
+                    if(myinfo.img != null){       //기본 자기 프로필 사진이 있다면 보여준다.
+
+                        Bitmap bmp;
+                        byte[] bytes = UserInfo.binaryStringToByteArray(myinfo.img);
+                        bmp = BitmapFactory.decodeByteArray(bytes, 0 , bytes.length);
+                        iv.setImageBitmap(bmp);
+                        iv.setClipToOutline(true);              //모양에 맞게 사진 자르기
+
+                    }
+
+
 
                     //예약 그룹부터 가져온다.
                     for (int i = 0; i < myinfo.groups.size(); i++) {
@@ -171,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
     //그룹 생성 버튼(끝)
     void create(){              //인탠트에서 1을 넘겨주어야 한다.
 
-        Button cb = (Button)findViewById(R.id.create);
+        TextView cb = (TextView) findViewById(R.id.create);
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
     //그룹 참가 버튼(끝)
     void join(){                //인탠트에서 2를 넘겨주어야 한다.
 
-        Button jb = (Button)findViewById(R.id.join);
+        TextView jb = (TextView) findViewById(R.id.join);
         jb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,8 +233,7 @@ public class MainActivity extends AppCompatActivity {
     //마이 페이지 버튼
     void mypage(){
 
-        ImageButton mypageButton = (ImageButton) findViewById(R.id.userButton);
-        mypageButton.setOnClickListener(new View.OnClickListener() {            //버튼 눌리면 마이페이지로 이동
+        iv.setOnClickListener(new View.OnClickListener() {            //버튼 눌리면 마이페이지로 이동
             @Override
             public void onClick(View v) {
 
@@ -236,5 +255,17 @@ public class MainActivity extends AppCompatActivity {
     void texicall(){
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

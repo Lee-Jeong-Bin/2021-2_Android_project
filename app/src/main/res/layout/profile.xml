@@ -280,6 +280,7 @@
                 android:text="닫기"
                 android:textColor="@color/black"
                 android:textSize="30dp"></TextView>
+
         </LinearLayout>
 
         <TextView
