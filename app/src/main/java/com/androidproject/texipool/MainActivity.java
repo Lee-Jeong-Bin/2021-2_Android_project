@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
                 try {
 
+                    reserve = new ArrayList<Group>();
+                    end = new ArrayList<>();
+
                     //제일 처음 유저 정보를 가져온다.
                     myinfo = snapshot.child("UserInfo").child(mykey).getValue(UserInfo.class);
 
