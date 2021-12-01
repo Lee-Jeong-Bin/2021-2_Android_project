@@ -341,7 +341,7 @@ public class Reservationgroup extends AppCompatActivity {
                         //그룹에서 자기 키 삭제
                         for(int i = 0; i < gp.users.size(); i++){
 
-                            if(gp.users.get(i) == mykey){       //키가 같은 경우
+                            if(mykey.equals(gp.users.get(i))){       //키가 같은 경우
 
                                 gp.users.remove(i);     //삭제
 
